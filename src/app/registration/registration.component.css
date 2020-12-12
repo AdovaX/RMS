@@ -20,12 +20,12 @@
 }
 
 .btn-twitter {
-    background: #42AEEC;
+    background: #dd4b39;
     border: none;
 }
 
 .btn-twitter:hover, .btn-twitter:focus {
-    background: #1799e4;
+    background:  red;
 }
 
 
