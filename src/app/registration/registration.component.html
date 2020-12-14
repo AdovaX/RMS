@@ -103,7 +103,7 @@
                         </a>
                     </div>
                     <div class="form-group col-lg-6 mx-auto mb-0">
-                        <a href="#" class="btn btn-primary btn-block py-2">
+                        <a href="#" class="btn btn-primary btn-block py-2" data-toggle="modal" data-target="#myModal">
                             <span class="font-weight-bold">Login back</span>
                         </a>
                     </div>
@@ -135,4 +135,28 @@
             </form>
         </div>
     </div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+         <h4 class="modal-title">Login </h4>
+      </div>
+      <div class="modal-body">
+        <p>Username </p>
+        <input type="text" class="form-control" name="" placeholder="Please enter your username."><br>
+        <p>Password </p>
+        <input type="password" class="form-control" name="" placeholder="Please enter your password.">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+        	<span class="fa fa-close"></span></button>
+        <button type="button" class="btn btn-primary" >Proceed <span class="fa fa-forward"></span></button>
+      </div>
+    </div>
+
+  </div>
 </div>
