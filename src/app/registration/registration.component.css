@@ -5,6 +5,12 @@
 * ==========================================
 *
 */
+.example-full-width{
+  width: 100%;
+}
+.img{
+  width: 100%;
+}
 
 .border-md {
     border-width: 2px;
@@ -77,5 +83,12 @@ select.form-control {
   display: inline-block;
   text-align: left;
   vertical-align: middle;
-  width: 100%;
-}
+ }
+ .centerd{
+  display: block;
+  margin-top: auto;
+  text-align: center;
+ }
+ .padder{
+  padding: 10px;
+ }

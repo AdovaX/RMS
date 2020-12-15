@@ -11,139 +11,169 @@
 </header>
 
 
+
+
+
+
+
 <div class="container">
-    <div class="row   mt-4 align-items-center">
-        <!-- For Demo Purpose -->
-        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
-            <img src="https://res.cloudinary.com/mhmd/image/upload/v1569543678/form_d9sh6m.svg" alt="" class="img-fluid mb-3 d-none d-md-block">
-            <h1>Create an Account</h1>
-            <p class="font-italic text-muted mb-0"> 
-              Create an account to get started.
-            </p>
-        </div>
-
-        <!-- Registeration Form -->
-        <div class="col-md-7 col-lg-6 ml-auto">
-            <form action="#">
-                <div class="row">
-
-                    <!-- First Name -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span>
-                        </div>
-                        <input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Last Name -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span>
-                        </div>
-                        <input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Email Address -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-envelope text-muted"></i>
-                            </span>
-                        </div>
-                        <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Phone Number -->
-                    <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-phone-square text-muted"></i>
-                            </span>
-                        </div> 
-                        <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number with country code" class="form-control bg-white border-md border-left-0 pl-3">
-                    </div>
-
-
-                    
-
-                    <!-- Password -->
-                    <div class="input-group col-sm-12 mb-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-lock text-muted"></i>
-                            </span>
-                        </div>
-                        <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Password Confirmation -->
-                    <div class="input-group col-sm-12 mb-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-lock text-muted"></i>
-                            </span>
-                        </div>
-                        <input id="passwordConfirmation" type="text" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="form-group col-lg-6 mx-auto mb-0">
-                        <a href="#" class="btn btn-primary btn-block py-2">
-                            <span class="font-weight-bold">Create your account</span>
-                        </a>
-                    </div>
-                    <div class="form-group col-lg-6 mx-auto mb-0">
-                        <a routerLink="/Profile" class="btn btn-primary btn-block py-2" data-toggle="modal" data-target="#myModal">
-                            <span class="font-weight-bold">Login back</span>
-                        </a>
-                    </div>
-
-                    <!-- Divider Text -->
-                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
-                        <div class="border-bottom w-100 ml-5"></div>
-                        <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
-                        <div class="border-bottom w-100 mr-5"></div>
-                    </div>
-
-                    <!-- Social Login -->
-                    <div class="form-group col-lg-6 mx-auto">
-                        <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
-                            <i class="fa fa-facebook-f mr-2"></i>
-                            <span class="font-weight-bold">Continue with Facebook</span>
-                        </a>
-                    </div>
-
-                    <div class="form-group col-lg-6 mx-auto">
-                        <a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
-                            <i class="fa fa-google-plus mr-2"></i>
-                            <span class="font-weight-bold">Continue with Google</span>
-                        </a>
-                    </div>
- 
-
-                </div>
-            </form>
-        </div>
-    </div>
+<div class="row  ">
+<!-- For Demo Purpose -->
+<div class="col-sm-5">
+<img src="https://res.cloudinary.com/mhmd/image/upload/v1569543678/form_d9sh6m.svg" alt="" class="img">
+<h1>Create an Account</h1>
+<p class="font-italic text-muted mb-0"> 
+Create an account to get started.
+</p>
 </div>
+
+<!-- Registeration Form -->
+<div class="col-sm-6">
+<form action="#">
+<div class="row padder">
+
+<!-- First Name -->
+<form class="example-form">
+    <div class="col-sm-6"> 
+     <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>First name</mat-label>
+    <input type="text" matInput placeholder="Ex. John"  required>
+  </mat-form-field>
+</div>
+    <div class="col-sm-6"> 
+    <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Second name</mat-label>
+    <input type="text" matInput placeholder="Ex. Dev"  >
+  </mat-form-field>
+</div>
+ 
+  
+   
+
+    <div class="col-sm-6"> 
+   <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Email ID</mat-label>
+    <input type="email" matInput placeholder="Ex. john@gmail.com" value="">
+  </mat-form-field>
+  </div>
+ 
+    <div class="col-sm-6"> 
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Telephone</mat-label> 
+    <input type="tel" matInput placeholder="555-555-1234">
+   </mat-form-field>
+</div>
+
+    <div class="col-sm-6"> 
+   <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput placeholder="Enter a strong password" value="">
+  </mat-form-field>
+</div>
+
+    <div class="col-sm-6"> 
+   <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Confirm password</mat-label>
+    <input type="password" matInput placeholder="Enter Your Password again" value="">
+  </mat-form-field>
+</div>
+<div class="col-sm-12"> 
+ <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Address</mat-label>
+    <textarea matInput placeholder="Ex. Ireland , John street ..."></textarea>
+  </mat-form-field>
+
+</div>
+</form>
+
+ 
+ 
+<br>
+<!-- Submit Button -->
+<div class="form-group col-lg-6 mx-auto mb-0">
+<a routerLink="/Profile" class="btn btn-primary btn-block py-2">
+<span class="font-weight-bold">Create your account</span>
+</a>
+
+</div>
+<div class="form-group col-lg-6 mx-auto mb-0">
+<a href="" class="btn btn-primary btn-block py-2" data-toggle="modal" data-target="#myModal">
+<span class="font-weight-bold">Login back</span>
+</a>
+</div>
+
+<!-- Divider Text -->
+<div class="centerd">
+ 
+<span class="">OR</span>
+ 
+</div>
+
+<!-- Social Login -->
+<div class="form-group col-lg-6 mx-auto">
+<a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
+<i class="fa fa-facebook-f mr-2"></i>
+<span class="font-weight-bold"> Continue with Facebook</span>
+</a>
+</div>
+
+<div class="form-group col-lg-6 mx-auto">
+<a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
+<i class="fa fa-google-plus mr-2"></i>
+<span class="font-weight-bold"> Continue with Google</span>
+</a>
+</div>
+
+
+</div>
+</form>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header">
-         <h4 class="modal-title">Login </h4>
-      </div>
+       
       <div class="modal-body">
-        <p>Username </p>
-        <input type="text" class="form-control" name="" placeholder="Please enter your username."><br>
-        <p>Password </p>
-        <input type="password" class="form-control" name="" placeholder="Please enter your password.">
+                 <h2 class="modal-title">Login </h2>
+
+            <p>Username </p>
+            <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input type="text" matInput placeholder="Enter your username"  required>
+            </mat-form-field>
+
+            <p>Password </p>    
+            <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="text" matInput placeholder="Enter your password"  required>
+            </mat-form-field>
+         
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close
