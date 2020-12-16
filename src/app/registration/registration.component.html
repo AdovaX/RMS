@@ -100,42 +100,38 @@
     <div class='redfont' *ngIf="formvalidation.Address.errors.required">Address is required</div>
     </div>
     </mat-form-field> 
-        <a id="nomargin" mat-raised-button href="https://www.google.com/" target="_blank">Forgot password ?</a>
-
+     
     </div>
   </div>
-  <br>
-     <div class="form-group col-lg-6 mx-auto mb-0">
-    <button  class="btn btn-primary btn-block py-2"><span class="font-weight-bold">Create your account</span></button>
-    </div>
-  </form>
+   
 
-  <div class="form-group col-lg-6 mx-auto mb-0">
-  <a href="" class="btn btn-primary btn-block py-2" data-toggle="modal" data-target="#myModal">
-  <span class="font-weight-bold">Login back</span>
-  </a>
-  </div>
-
-<div class="centerd">
-
-<span >OR</span>
-
+<div class="row">
+<div class="col-lg-4 col-sm-6 col-md-6 col-xs-6">
+<button mat-raised-button color="primary">Create your account<span class="font-weight-bold"></span></button>
 </div>
+<div class="col-lg-4 col-sm-6 col-md-6 col-xs-6">
+<button mat-raised-button data-toggle="modal" data-target="#myModal" color="primary">  <span class="font-weight-bold">Login back</span>
+</button>
+</div>
+</div>
+ </form>
+ <hr>
 
-  <div class="form-group col-lg-6 mx-auto">
+<div class="row">
+<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
   <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
   <i class="fa fa-facebook-f mr-2"></i>
-  <span class="font-weight-bold"> Continue with Facebook</span>
+  <span class="font-weight-bold"> Login with Facebook</span>
   </a>
   </div>
 
-  <div class="form-group col-lg-6 mx-auto">
+<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
   <a href="#" class="btn btn-primary btn-block py-2 btn-twitter" (click)="signInWithGoogle()">
   <i class="fa fa-google-plus mr-2"></i>
-  <span class="font-weight-bold"> Continue with Google</span>
+  <span class="font-weight-bold"> Login with Google</span>
   </a>
   </div>
-
+</div>
 </div> 
 </div>
 </div>
@@ -171,6 +167,7 @@
   <div class="modal-footer">
   <button type="button" class="btn btn-danger" data-dismiss="modal">Close
   <span class="fa fa-close"></span></button>
+  <button type="button" class="btn btn-primary" >Forgot password <span class="fa fa-key"></span></button>
   <button type="button" class="btn btn-primary" >Proceed <span class="fa fa-forward"></span></button>
   </div>
   </div>
