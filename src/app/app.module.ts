@@ -19,6 +19,7 @@ import {
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserHeaderComponent } from './user-header/user-header.component';
 
  
  @NgModule({
@@ -26,7 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     RegistrationComponent,
     DashboardComponent, 
-    HeaderComponent
+    HeaderComponent, UserHeaderComponent
   ],
   imports: [
     BrowserModule,
