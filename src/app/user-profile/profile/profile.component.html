@@ -1,8 +1,6 @@
 
 <div class="container">
     <div class="main-body">
-    
-          
      
           <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
@@ -11,7 +9,7 @@
                   <div class="d-flex flex-column align-items-center text-center">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
-                      <h4>John Doe</h4>
+                      <h2>John Doe</h2>
                       <p class="text-secondary mb-1">email@gmail.com</p>
                        
                      </div>
@@ -23,6 +21,10 @@
 <div class="col-md-8"> 
 <form class="example-form">
 
+<mat-tab-group>
+  <mat-tab label="Personal data"> 
+  	<p>Please fill your personal details.
+</p>
 <div class="col-sm-6 pad">
 <mat-card> 
 <mat-form-field class="example-full-width">
@@ -39,25 +41,7 @@
 </mat-form-field>
 </mat-card>
 </div>
-<div class="col-sm-12 pad">
-<mat-card> 
-<mat-form-field class="example-full-width">
-<mat-label>Address</mat-label>
-<textarea matInput placeholder="Please enter your Primary address" rows="5"></textarea> 
-</mat-form-field>
-
-    <button type="button" mat-raised-button color="primary" data-toggle="modal" data-target="#address" >Add another address</button>
-
-</mat-card>
-</div> 
-</form> 
-</div>
-</div>
-
-
-<div class="row"> 
-
-<div class="col-sm-4 pad"> 
+<div class="col-sm-6 pad"> 
 <mat-card> 
 <mat-form-field class="example-full-width">
 <mat-label>Phone number</mat-label>
@@ -66,18 +50,94 @@
  <button type="button" mat-raised-button color="primary" data-toggle="modal" data-target="#phones" >Add another Phone number</button>
 </mat-card>
 </div>
+<div class="col-sm-6 pad"> 
+<mat-card> 
+<mat-form-field class="example-full-width">
+<mat-label>Mail address</mat-label>
+<input matInput placeholder="Your Phone number" value="Sushi">
+</mat-form-field>
+ <button type="button" mat-raised-button color="primary" data-toggle="modal" data-target="#mailaddress" >Add another Mail address</button>
+</mat-card>
+</div>
 
+
+  </mat-tab>
+  <mat-tab label="Location"> <p>Please fill your location details.
+</p>
+ 
+<div class="col-sm-12 pad"> <mat-card> 
+<mat-form-field class="example-full-width"  >
+<mat-label>Current Address</mat-label>
+<textarea matInput placeholder="Please enter your Primary address" rows="5"></textarea> 
+</mat-form-field> 
+
+<button type="button" mat-raised-button color="primary" data-toggle="modal" data-target="#address" >Add another address</button>
+</mat-card>
+</div>
+
+
+<div class="col-sm-4 pad"> 
+<mat-card> 
+<mat-form-field class="example-full-width"  >
+  <mat-label>Choose your Country</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let country of country" [value]="country.value">
+      {{country.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field> 
+</mat-card>
+</div>
+<div class="col-sm-4 pad"> 
+	<mat-card> 
+<mat-form-field class="example-full-width">
+<mat-label>Enter your State</mat-label>
+<input matInput placeholder="Your second name" value="Sushi">
+</mat-form-field>
+</mat-card>
+
+ 
+</div>
+<div class="col-sm-4 pad"> 
+<mat-card> 
+<mat-form-field class="example-full-width">
+<mat-label>Enter your Town</mat-label>
+<input matInput placeholder="Your second name" value="Sushi">
+</mat-form-field>
+</mat-card>
+
+ 
 </div>
 
 
 
-</div>
-</div>
+  </mat-tab>
+  <mat-tab label="Uploads"> 
+  	<p>Please upload your documents</p>
+<mat-card>
+  <button mat-raised-button>click to upload your passport</button>
+</mat-card>
 
+<mat-card>
+  <button mat-raised-button>click to upload your ID</button>
+</mat-card>
+
+
+
+  </mat-tab>
+</mat-tab-group>
+
+ 
+</form> 
+</div>
+</div>
+ 
+
+</div>
+</div>
 
 
  
-
 
 <!-- Modal -->
 <div id="phones" class="modal fade" role="dialog">
@@ -98,6 +158,31 @@
 <button type="button" class="btn btn-danger" data-dismiss="modal">Close
 <span class="fa fa-close"></span></button>
 <button type="button" class="btn btn-primary" >Add to Phones <span class="fa fa-forward"></span></button>
+</div>
+</div>
+
+</div>
+</div>
+<!-- Modal -->
+<div id="mailaddress" class="modal fade" role="dialog">
+<div class="modal-dialog">
+
+<!-- Modal content-->
+<div class="modal-content">
+
+<div class="modal-body">
+<h2 class="modal-title">Add your new Mail Address </h2>
+
+<mat-form-field class="example-full-width">
+<mat-label>Mail Address</mat-label>
+<textarea matInput placeholder="Please enter your new address" rows="5"></textarea> 
+</mat-form-field>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-danger" data-dismiss="modal">Close
+<span class="fa fa-close"></span></button>
+<button type="button" class="btn btn-primary" >Add to Mail Address <span class="fa fa-forward"></span></button>
 </div>
 </div>
 
