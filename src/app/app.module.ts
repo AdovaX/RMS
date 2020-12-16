@@ -10,13 +10,16 @@ import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import {
   GoogleLoginProvider,
   FacebookLoginProvider,
   AmazonLoginProvider,
   VKLoginProvider
 } from 'angularx-social-login';
+import { HttpClientModule } from "@angular/common/http";
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
  
  @NgModule({
@@ -33,7 +36,10 @@ import {
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    SocialLoginModule
+    SocialLoginModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
 
   ],
   providers: [{
@@ -47,8 +53,7 @@ import {
             //'624796833023-clhjgupm0pu6vgga7k5i5bsfp6qp6egh.apps.googleusercontent.com'
            '890970447819-cb2glbl2hbcjq81s9gubhh1kbr747b92.apps.googleusercontent.com'
           ),
-        }
-       
+        }      
         
       ],
       } as SocialAuthServiceConfig,

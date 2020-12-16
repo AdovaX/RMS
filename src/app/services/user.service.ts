@@ -18,10 +18,18 @@ export class UserService {
    apiData = new BehaviorSubject<any>(null);
    apiData$ = this.apiData.asObservable();
 
+  //Social Login Service
   socialRegister(userDetails: SocialUser){
-
     console.log("service==================>"+JSON.stringify(userDetails));
     return this.http.post(this.baseurl + 'accounts/socialRegister', userDetails);
+    
+  }
+
+  //Registration Service
+  registerUser(registrationDetails: any){
+    console.log("registrationDetails==================>"+JSON.stringify(registrationDetails));
+    return this.http.post(this.baseurl + 'accounts/register', registrationDetails);
+    //return 'success';
   }
 
  

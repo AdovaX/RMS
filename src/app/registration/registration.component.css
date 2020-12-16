@@ -92,3 +92,7 @@ select.form-control {
  .padder{
   padding: 10px;
  }
+/* added for error messages*/
+ .redfont{
+     color:#f44336;
+ }
