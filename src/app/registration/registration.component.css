@@ -96,3 +96,6 @@ select.form-control {
  .redfont{
      color:#f44336;
  }
+ mat-form-field{
+  padding: 0px!important;
+ }
