@@ -51,8 +51,8 @@ export class RegistrationComponent implements OnInit {
 
 }
 
-get f() { return this.form.controls; }
-get f2() { return this.loginForm.controls; }
+get formvalidation() { return this.form.controls; }
+get loginvalidation() { return this.loginForm.controls; }
 
 submitForm() {
   this.submitted = true;
