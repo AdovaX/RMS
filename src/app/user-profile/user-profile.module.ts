@@ -6,7 +6,8 @@ import { ProfileComponent } from './profile/profile.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
- 
+ import {MatButtonModule} from '@angular/material/button';
+
 @NgModule({
   declarations: [ProfileComponent],
   imports: [
@@ -14,7 +15,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     UserProfileRoutingModule,
     MatInputModule,
     MatFormFieldModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule
   ]
 })
 export class UserProfileModule { }
