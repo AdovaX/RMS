@@ -15,20 +15,32 @@
   <img src="https://res.cloudinary.com/mhmd/image/upload/v1569543678/form_d9sh6m.svg" alt="" class="img">
   <h1>Create an Account</h1>
   <p class="font-italic text-muted mb-0"> 
-  Create an account to get started with our Repair management system.
+  Create an account to get started with our Repair management system. <a [routerLink]="['/Privacypolicy']">Privacy policy and rules</a>
   </p> 
-  <div class="row">
-<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
- <p>
-    <a [routerLink]="['/Privacypolicy']">Privacy policy and rules</a>
-  </p>
-</div>
-<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
-<button type="button" mat-raised-button data-toggle="modal" data-target="#myModal" color="primary">  <span class="font-weight-bold">Login back</span>
-</button>
-</div>
-</div>
+ 
   
+<div class="row">
+  <div class="col-lg-4 col-xs-12">
+ <button type="button" class="marger widther" mat-raised-button data-toggle="modal" data-target="#myModal" color="primary">  <span class="font-weight-bold">Login back</span>
+</button>
+
+</div>
+  <div class="col-lg-4 col-xs-6">
+  <button mat-raised-button color="primary" class="marger widther">  Facebook Login<span class="font-weight-bold "></span>
+</button> 
+
+</div>
+<div class="col-lg-4 col-xs-6 ">
+  <button mat-raised-button color="warn" class="marger widther" (click)="signInWithGoogle()">
+      Google Login<span class="font-weight-bold "></span>
+</button> 
+
+</div> 
+
+</div>
+
+
+
   </div>
 
 <div class="col-sm-7  col-lg-7"> 
@@ -109,18 +121,7 @@
 <div class="col-lg-4 col-sm-6 col-md-6 col-xs-6 offset-lg-6">
 <button mat-raised-button color="primary">Create your account<span class="font-weight-bold"></span>
 </button>
-</div> 
-<div class="col-lg-4">
-  <button mat-raised-button color="primary">  Facebook Login<span class="font-weight-bold "></span>
-</button> 
-
-</div>
-<div class="col-lg-4">
-  <button mat-raised-button color="warn" (click)="signInWithGoogle()">
-      Google Login<span class="font-weight-bold "></span>
-</button> 
-
-</div> 
+</div>  
 </div>
 
 </form>
@@ -203,18 +204,7 @@
 <div class="col-lg-4 col-sm-6 col-md-6 col-xs-6 offset-lg-6">
 <button mat-raised-button color="primary">Create your account<span class="font-weight-bold"></span>
 </button>
-</div> 
-<div class="col-lg-4">
-  <button mat-raised-button color="primary">  Facebook Login<span class="font-weight-bold "></span>
-</button> 
-
-</div>
-<div class="col-lg-4">
-  <button mat-raised-button color="warn" (click)="signInWithGoogle()">
-      Google Login<span class="font-weight-bold "></span>
-</button> 
-
-</div> 
+</div>  
 </div>
  </form>
 
