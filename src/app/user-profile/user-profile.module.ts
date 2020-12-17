@@ -11,6 +11,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [ProfileComponent],
@@ -24,7 +26,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatExpansionModule,
     MatListModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule
   ]
 })
 export class UserProfileModule { }

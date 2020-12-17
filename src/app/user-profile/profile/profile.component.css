@@ -121,3 +121,14 @@ select.form-control {
 .example-headers-align .mat-form-field + .mat-form-field {
   margin-left: 8px;
 }
+.right_float button{
+  display: block;
+  margin: auto;
+}
+.theError{
+  color: red;
+  margin-top: -20px;
+}
+.overflow{
+  overflow: hidden;
+}

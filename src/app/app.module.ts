@@ -22,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserHeaderComponent } from './user-header/user-header.component';
 import {MatButtonModule} from '@angular/material/button';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
  
  @NgModule({
@@ -41,7 +42,8 @@ import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component'
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatExpansionModule
 
   ],
   providers: [{
