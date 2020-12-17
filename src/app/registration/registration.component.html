@@ -11,22 +11,34 @@
 
 <div class="container">
 <div class="row  "> 
-  <div class="col-sm-5">
+  <div class="col-sm-5 col-lg-5">
   <img src="https://res.cloudinary.com/mhmd/image/upload/v1569543678/form_d9sh6m.svg" alt="" class="img">
   <h1>Create an Account</h1>
   <p class="font-italic text-muted mb-0"> 
   Create an account to get started with our Repair management system.
-  </p>
-  <p>
+  </p> 
+  <div class="row">
+<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+ <p>
     <a [routerLink]="['/Privacypolicy']">Privacy policy and rules</a>
   </p>
+</div>
+<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+<button type="button" mat-raised-button data-toggle="modal" data-target="#myModal" color="primary">  <span class="font-weight-bold">Login back</span>
+</button>
+</div>
+</div>
   
   </div>
 
-<div class="col-sm-6"> 
-<div class="row padder">
+<div class="col-sm-7  col-lg-7"> 
+<div class="  padder">
 
-  <form class="example-form" [formGroup]="form" (ngSubmit)="submitForm()">
+<mat-tab-group mat-align-tabs="start">
+  <mat-tab label="Sign up with Email">
+ <br>
+
+  <form class="example-form overfl" [formGroup]="form" (ngSubmit)="submitForm()">
     <div class="row">
     <div class="col-sm-6"> 
     <mat-form-field class="example-full-width" appearance="outline">
@@ -39,6 +51,18 @@
     </div>
     <div class="col-sm-6"> 
     <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Middle name</mat-label>
+    <input type="text" matInput placeholder="Ex. Dev"  [formControlName]="'LastName'"  [ngClass]="{ 'is-invalid': submitted && formvalidation.LastName.errors }" />
+    <div *ngIf="submitted && formvalidation.LastName.errors" class="invalid-feedback">
+    <div class='redfont' *ngIf="formvalidation.LastName.errors.required">Last Name is required</div>
+    </div>
+    </mat-form-field>
+    </div>
+   
+  </div>
+  <div class="row">
+    <div class="col-sm-6"> 
+    <mat-form-field class="example-full-width" appearance="outline">
     <mat-label>Last name</mat-label>
     <input type="text" matInput placeholder="Ex. Dev"  [formControlName]="'LastName'"  [ngClass]="{ 'is-invalid': submitted && formvalidation.LastName.errors }" />
     <div *ngIf="submitted && formvalidation.LastName.errors" class="invalid-feedback">
@@ -46,9 +70,6 @@
     </div>
     </mat-form-field>
     </div>
-  </div>
-  <div class="row">
-
     <div class="col-sm-6"> 
     <mat-form-field class="example-full-width" appearance="outline">
     <mat-label>Email ID</mat-label>
@@ -59,17 +80,7 @@
     </div>
     </mat-form-field>
     </div>
-
-    <div class="col-sm-6"> 
-    <mat-form-field class="example-full-width" appearance="outline">
-    <mat-label>Telephone</mat-label> 
-    <input type="tel" matInput placeholder="555-555-1234" [formControlName]="'PhoneNumber'"  [ngClass]="{ 'is-invalid': submitted && formvalidation.PhoneNumber.errors }" />
-    <div *ngIf="submitted && formvalidation.PhoneNumber.errors" class="invalid-feedback">
-    <div class='redfont'  *ngIf="formvalidation.PhoneNumber.errors.required">Phone Number is required</div>
-    <div class='redfont'  *ngIf="formvalidation.PhoneNumber.errors.pattern">Invalid Phone Number</div>
-    </div>
-    </mat-form-field>
-    </div>
+ 
 </div>
 <div class="row">
     <div class="col-sm-6"> 
@@ -94,49 +105,128 @@
     </mat-form-field>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-12"> 
-    <mat-form-field class="example-full-width " appearance="outline">
-    <mat-label>Address</mat-label>
-    <textarea matInput placeholder="Ex. Ireland , John street ..." [formControlName]="'Address'"  [ngClass]="{ 'is-invalid': submitted && formvalidation.Address.errors }" >
-    </textarea>
-    <div *ngIf="submitted && formvalidation.Address.errors" class="invalid-feedback nomargin">
-    <div class='redfont' *ngIf="formvalidation.Address.errors.required">Address is required</div>
+ 
+<div class="row">
+<div class="col-lg-4 col-sm-4 col-md-12 col-xs-12    ">
+<button type="submit" mat-raised-button color="primary" class="widther">Create your account<span class="font-weight-bold"></span>
+</button>
+</div> 
+<div class="col-lg-4 col-sm-4 col-md-5 col-xs-6  ">
+  <button type="button" mat-raised-button color="primary" class="widther"> Login with Facebook<span class="font-weight-bold"></span>
+</button> 
+
+</div>
+<div class="col-lg-4 col-sm-4 col-md-5 col-xs-6  ">
+  <button type="button" mat-raised-button color="warn" class="widther" (click)="signInWithGoogle()">Login with Google<span class="font-weight-bold"></span>
+</button> 
+
+</div> 
+</div>
+
+</form>
+</mat-tab>
+
+<mat-tab label="Sign up with phone">
+ <br>
+
+  <form class="example-form overfl" [formGroup]="form" (ngSubmit)="submitForm()">
+    <div class="row">
+    <div class="col-sm-6"> 
+    <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>First name</mat-label>
+    <input type="text" matInput placeholder="First Name"  [formControlName]="'FirstName'"  [ngClass]="{ 'is-invalid': submitted && formvalidation.FirstName.errors }" />
+    <div *ngIf="submitted && formvalidation.FirstName.errors" class="invalid-feedback">
+    <div class='redfont' *ngIf="formvalidation.FirstName.errors.required">First Name is required</div>
     </div>
-    </mat-form-field> 
-     
+    </mat-form-field>
+    </div>
+    <div class="col-sm-6"> 
+    <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Middle name</mat-label>
+    <input type="text" matInput placeholder="Ex. Dev"  [formControlName]="'LastName'"  [ngClass]="{ 'is-invalid': submitted && formvalidation.LastName.errors }" />
+    <div *ngIf="submitted && formvalidation.LastName.errors" class="invalid-feedback">
+    <div class='redfont' *ngIf="formvalidation.LastName.errors.required">Last Name is required</div>
+    </div>
+    </mat-form-field>
+    </div>
+   
+  </div>
+  <div class="row">
+    <div class="col-sm-6"> 
+    <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Last name</mat-label>
+    <input type="text" matInput placeholder="Ex. Dev"  [formControlName]="'LastName'"  [ngClass]="{ 'is-invalid': submitted && formvalidation.LastName.errors }" />
+    <div *ngIf="submitted && formvalidation.LastName.errors" class="invalid-feedback">
+    <div class='redfont' *ngIf="formvalidation.LastName.errors.required">Last Name is required</div>
+    </div>
+    </mat-form-field>
+    </div>
+    <div class="col-sm-6"> 
+    <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Telephone</mat-label> 
+    <input type="tel" matInput placeholder="555-555-1234" [formControlName]="'PhoneNumber'"  [ngClass]="{ 'is-invalid': submitted && formvalidation.PhoneNumber.errors }" />
+    <div *ngIf="submitted && formvalidation.PhoneNumber.errors" class="invalid-feedback">
+    <div class='redfont'  *ngIf="formvalidation.PhoneNumber.errors.required">Phone Number is required</div>
+    <div class='redfont'  *ngIf="formvalidation.PhoneNumber.errors.pattern">Invalid Phone Number</div>
+    </div>
+    </mat-form-field>
+    </div>
+ 
+</div>
+<div class="row">
+    <div class="col-sm-6"> 
+    <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput placeholder="Enter a strong password" [formControlName]="'LoginPassword'" [ngClass]="{ 'is-invalid': submitted && formvalidation.LoginPassword.errors }" />
+    <div *ngIf="submitted && formvalidation.LoginPassword.errors" class="invalid-feedback">
+    <div class='redfont'  *ngIf="formvalidation.LoginPassword.errors.required">Password is required</div>
+    <div class='redfont'  *ngIf="formvalidation.LoginPassword.errors.minlength">Password must be at least 6 characters</div>
+    </div>
+    </mat-form-field>
+    </div>
+
+    <div class="col-sm-6"> 
+    <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Confirm password</mat-label>
+    <input type="password" matInput placeholder="Enter Your Password again"[formControlName]="'confirmPassword'" [ngClass]="{ 'is-invalid': submitted && formvalidation.confirmPassword.errors }" />
+    <div *ngIf="submitted && formvalidation.confirmPassword.errors" class="invalid-feedback">
+    <div class='redfont' *ngIf="formvalidation.confirmPassword.errors.required">Confirm Password is required</div>
+    <div class='redfont' *ngIf="formvalidation.confirmPassword.errors.mustMatch">Passwords must match</div>
+    </div>
+    </mat-form-field>
     </div>
   </div>
+ 
    
 
 <div class="row">
-<div class="col-lg-4 col-sm-6 col-md-6 col-xs-6">
-<button mat-raised-button color="primary">Create your account<span class="font-weight-bold"></span></button>
-</div>
-<div class="col-lg-4 col-sm-6 col-md-6 col-xs-6">
-<button type="button" mat-raised-button data-toggle="modal" data-target="#myModal" color="primary">  <span class="font-weight-bold">Login back</span>
+<div class="col-lg-4 col-sm-6 col-md-6 col-xs-6 offset-lg-6">
+<button mat-raised-button color="primary">Create your account<span class="font-weight-bold"></span>
 </button>
+</div> 
+<div class="col-lg-4">
+  <button mat-raised-button color="primary">Login with Facebook<span class="font-weight-bold"></span>
+</button> 
+
 </div>
+<div class="col-lg-4">
+  <button mat-raised-button color="warn" (click)="signInWithGoogle()">Login with Google<span class="font-weight-bold"></span>
+</button> 
+
+</div> 
 </div>
  </form>
- <hr>
 
-<div class="row">
-<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
-  <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
-  <i class="fa fa-facebook-f mr-2"></i>
-  <span class="font-weight-bold"> Login with Facebook</span>
-  </a>
-  </div>
 
-<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
-  <a href="#" class="btn btn-primary btn-block py-2 btn-twitter" (click)="signInWithGoogle()">
-  <i class="fa fa-google-plus mr-2"></i>
-  <span class="font-weight-bold"> Login with Google</span>
-  </a>
-  </div>
-</div>
 
+  </mat-tab>
+
+
+
+  
+</mat-tab-group>
+
+ 
 
 
 </div> 

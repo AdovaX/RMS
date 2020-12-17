@@ -104,3 +104,13 @@ select.form-control {
   top: -10px;
   float: right;
  }
+ .overfl{
+  overflow: hidden;
+
+ }
+ .widther{
+  width: 100%;
+ }
+ .marger{
+  margin: 2px;
+ }

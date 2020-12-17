@@ -23,6 +23,7 @@ import { UserHeaderComponent } from './user-header/user-header.component';
 import {MatButtonModule} from '@angular/material/button';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
 
  
  @NgModule({
@@ -43,7 +44,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTabsModule
 
   ],
   providers: [{
