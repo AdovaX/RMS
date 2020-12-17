@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserHeaderComponent } from './user-header/user-header.component';
 import {MatButtonModule} from '@angular/material/button';
+import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 
  
  @NgModule({
@@ -28,7 +29,7 @@ import {MatButtonModule} from '@angular/material/button';
     AppComponent,
     RegistrationComponent,
     DashboardComponent, 
-    HeaderComponent, UserHeaderComponent
+    HeaderComponent, UserHeaderComponent, PrivacypolicyComponent
   ],
   imports: [
     BrowserModule,
