@@ -28,7 +28,12 @@ export class UserService {
   //Registration Service
   registerUser(registrationDetails: any){
     console.log("registrationDetails==================>"+JSON.stringify(registrationDetails));
-    return this.http.post(this.baseurl + 'accounts/register', registrationDetails);
+    return this.http.post(this.baseurl + 'accounts/registeremail', registrationDetails);
+    //return 'success';
+  }
+  registerUserPhone(registrationDetails: any){
+    console.log("registrationDetails==================>"+JSON.stringify(registrationDetails));
+    return this.http.post(this.baseurl + 'accounts/registerphone', registrationDetails);
     //return 'success';
   }
 

@@ -20,6 +20,7 @@ submitted = false;
 form      : FormGroup;
 loginForm : FormGroup;
 accData   :any ;
+phoneform : FormGroup;
 
 constructor(private authService: SocialAuthService,
 	private router: Router,
@@ -29,9 +30,8 @@ constructor(private authService: SocialAuthService,
 this.form      = this.fb.group({
 FirstName      :['', Validators.required],
 LastName       :['', Validators.required],
+MiddleName		:[''],
 EmailAddress   : ['', [Validators.required, Validators.email]],
-PhoneNumber    :[null, [Validators.required, Validators.pattern("[0-9 ]{11}")]],
-Address        :['', Validators.required],     
 LoginPassword  :['', [Validators.required, Validators.minLength(6)]],
 confirmPassword:['', Validators.required]
 },
@@ -44,6 +44,19 @@ UserName       : ['', Validators.required],
 LoginPassword  :['', Validators.required]
 });
 
+
+this.phoneform      = this.fb.group({
+	FirstName      :['', Validators.required],
+	LastName       :['', Validators.required],
+	MiddleName		:[''],
+	PhoneNumber    :[null, [Validators.required, Validators.pattern("[0-9 ]{10}")]],
+	LoginPassword  :['', [Validators.required, Validators.minLength(6)]],
+	confirmPassword:['', Validators.required]
+	},
+	{
+	validator      : MustMatch('LoginPassword', 'confirmPassword')
+	});
+
 }
 ngOnInit(): void { 
 
@@ -51,6 +64,7 @@ ngOnInit(): void {
 
 get formvalidation() { return this.form.controls; }
 get loginvalidation() { return this.loginForm.controls; }
+get phoneformvalidation() { return this.phoneform.controls; }
 
 submitForm() {
 this.submitted = true; 
@@ -64,6 +78,20 @@ this.router.navigate(['Successorfailure']);
 });
 
 }
+
+
+submitFormPhone() {
+	this.submitted = true; 
+	if (this.phoneform.invalid) {
+	return;
+	}
+	this.userService.registerUserPhone(this.phoneform.getRawValue()).subscribe( data => {
+	console.log(data);
+	this.phoneform.reset();
+	this.router.navigate(['Successorfailure']);
+	});
+	
+	}
 
 async signInWithGoogle(): Promise<any> {  
 
