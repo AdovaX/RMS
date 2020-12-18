@@ -13,7 +13,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  baseurl: string = "http://localhost:8080/";
+  //baseurl: string = "http://localhost:8080/";
+  baseurl: string = "http://13.126.170.121:8080/";
 
    apiData = new BehaviorSubject<any>(null);
    apiData$ = this.apiData.asObservable();
