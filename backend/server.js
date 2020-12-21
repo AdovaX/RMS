@@ -19,7 +19,11 @@ app.use('/accounts', require('./accounts/accounts.controller'));
 
 // swagger docs route
 //app.use('/api-docs', require('_helpers/swagger'));
+app.get('/get_users',function(req, res){
 
+res.send('s');
+
+});
 // global error handler
 app.use(errorHandler);
 
