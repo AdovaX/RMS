@@ -13,8 +13,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  //baseurl: string = "http://localhost:8080/";
-  baseurl: string = "http://13.126.170.121:8080/";
+  baseurl: string = "http://localhost:4000/";
+ // baseurl: string = "http://13.126.170.121:8080/";
 
    apiData = new BehaviorSubject<any>(null);
    apiData$ = this.apiData.asObservable();
@@ -38,5 +38,11 @@ export class UserService {
     //return 'success';
   }
 
+  authenticate(loginDetails:any){
+    
+    console.log("registrationDetails==================>"+JSON.stringify(loginDetails));
+    return this.http.post(this.baseurl + 'auth/authenticate', loginDetails);
+
+  }
  
 }

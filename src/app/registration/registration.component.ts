@@ -106,5 +106,9 @@ console.log(data);
 this.router.navigate(['Profile']);
 });
 }
+async signIn(){
+	console.log("ppppppppppppp"+this.loginForm.getRawValue)
+
+}
 
 }
