@@ -3,8 +3,8 @@
         "host": "localhost",
         "port": 3306,
         "user": "root",
-        "password": "Imeidb@123",
-        "database": "repairapplication_db_new"
+        "password": "",
+        "database": "CentralUser"
     },
     "secret": "IMEIDB@123",
     "emailFrom": "Repair",

@@ -160,19 +160,123 @@ async function register(params, origin) {
     const loginUser = new db.loginModel(params);
     const email= new db.Email(params);
     const emailUser= new db.emailUser(params);
-    
-    
-   //const address = new db.Address(params);  
-   //const userAddress = new db.userAddress(params); 
-   // save User,Address and User Address details
-  // user.UserID=10;
-    user.MiddleName='';
-    user.DefaultAddressID=0;
-    user.DefaultPhoneID=0;
 
-    phone.CountryID=countryObject.CountryID;
-    phone.NumberinInterForm=0;
-    phone.PhoneNoTypeID=phoneTypeObject.PhoneNoTypeID;
+    //email.EmailAddress=params.EmailAddress;
+   // console.log(email.EmailAddress);
+    //await email.save();
+
+
+    if(params.hasOwnProperty('PhoneNumber')){        
+        login.UserName = params.PhoneNumber;
+    }
+    if(params.hasOwnProperty('EmailAddress')){        
+        login.UserName = params.EmailAddress;
+    }
+   
+    login.LoginTypeID=logintypeObject.LoginTypeID;
+    console.log("login.LoginTypeID=========>"+login.LoginTypeID)
+    login.UserNameVerified= 0;
+    login.LoginPassword=params.LoginPassword;
+    login.LoginPasswordSalt=await hash(params.LoginPassword);
+    
+    
+   const address = new db.Address(params);  
+   const userAddress = new db.userAddress(params); 
+   // save User,Address and User Address details
+   user.MiddleName='';
+  // user.UserID=10;
+
+  address.Address='';
+  address.Town='';
+  address.State='';
+  address.CountryID=countryObject.CountryID;
+  address.PostCode='';
+  address.save().then(async function(addressObject){
+
+        console.log("addId======"+addressObject.AddressID);
+        user.DefaultAddressID=addressObject.AddressID;
+        if(params.hasOwnProperty('PhoneNumber')){ 
+            phone.CountryID=countryObject.CountryID;
+            phone.NumberinInterForm=0;
+            phone.PhoneNoTypeID=phoneTypeObject.PhoneNoTypeID;
+        
+            await phone.save().then(async function(phoneResult){
+                this.phoneId=phoneResult.PhoneNoID;
+                console.log("PhoneNoID========>"+ this.phoneId);
+                user.DefaultPhoneID=this.phoneId;
+
+                    await user.save().then(async function(userResult){
+                        userAddress.UserID=userResult.UserID; 
+                        userAddress.AddressID=addressObject.AddressID;
+                        userAddress.save();
+                        this.usetId=userResult.UserID;
+                        phoneUser.UserID=this.usetId;
+                        phoneUser.PhoneNoID=this.phoneId;
+                        await phoneUser.save();
+                        await login.save().then(async function(loginResult){
+                            this.loginId=loginResult.LoginID;
+                            console.log("loginId========>"+ this.loginId);
+                            console.log("userid========>"+ this.usetId);
+                            loginUser.UserID=this.usetId;
+                            loginUser.LoginID=this.loginId;
+                            await loginUser.save();
+                        
+                        });
+                    }); 
+            });
+        }
+
+        if(params.hasOwnProperty('EmailAddress')){ 
+            phone.CountryID=countryObject.CountryID;
+            phone.NumberinInterForm=0;
+            phone.PhoneNoTypeID=phoneTypeObject.PhoneNoTypeID;
+            phone.PhoneNumber='000000000000';
+        
+            await phone.save().then(async function(phoneResult){
+                this.phoneId=phoneResult.PhoneNoID;
+                console.log("PhoneNoID========>"+ this.phoneId);
+                user.DefaultPhoneID=this.phoneId;
+
+                    await user.save().then(async function(userResult){
+                        userAddress.UserID=userResult.UserID; 
+                        userAddress.AddressID=addressObject.AddressID;
+                        userAddress.save();
+                        this.usetId=userResult.UserID;
+                        phoneUser.UserID=this.usetId;
+                        phoneUser.PhoneNoID=this.phoneId;
+                        await phoneUser.save();
+
+                        await email.save().then(async function(emailResult){
+                            this.emailId=emailResult.EmailID;
+                            console.log("EmailID========>"+ this.emailId);
+                            console.log("userid========>"+ this.usetId);
+                            emailUser.UserID=this.usetId;
+                            emailUser.EmailID=this.emailId;
+                            await emailUser.save();
+                           
+                        });
+
+                        await login.save().then(async function(loginResult){
+                            this.loginId=loginResult.LoginID;
+                            console.log("loginId========>"+ this.loginId);
+                            console.log("userid========>"+ this.usetId);
+                            loginUser.UserID=this.usetId;
+                            loginUser.LoginID=this.loginId;
+                            await loginUser.save();
+                        
+                        });
+                    }); 
+            });
+        }
+
+
+  });
+
+   
+    
+    
+/*
+    
     //added by temporary 
     //phone.PhoneNumber=123456;
 
@@ -195,26 +299,15 @@ async function register(params, origin) {
   //  address.PostCode='';
     await user.save().then(async function(userResult){
         this.usetId=userResult.UserID;
-      //  console.log("userid========>"+ this.usetId);
+      //console.log("userid========>"+ this.usetId);
 
-      if(params.hasOwnProperty('PhoneNumber')){ 
       
-        await phone.save().then(async function(phoneResult){
-            this.phoneId=phoneResult.PhoneNoID;
-            console.log("PhoneNoID========>"+ this.phoneId);
-            console.log("userid========>"+ this.usetId);
-            phoneUser.UserID=this.usetId;
-            phoneUser.PhoneNoID=this.phoneId;
-            await phoneUser.save();
-           
-        });
-     }
 
      if(params.hasOwnProperty('EmailAddress')){ 
       
         await email.save().then(async function(emailResult){
             this.emailId=emailResult.EmailID;
-            console.log("EmailID========>"+ this.EmailID);
+            console.log("EmailID========>"+ this.emailId);
             console.log("userid========>"+ this.usetId);
             emailUser.UserID=this.usetId;
             emailUser.EmailID=this.emailId;
@@ -234,7 +327,7 @@ async function register(params, origin) {
         });
 
 
-    });
+    });*/
 
 
   //  console.log("UserID======"+user.save().UserID)

@@ -9,9 +9,11 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+var sess;  
 
 router.post('/authenticate', authenticate);
 const db = require('_helpers/db');
+const { tokenName } = require('@angular/compiler');
 module.exports = router;
 
 
@@ -28,6 +30,7 @@ async function authenticate (request, response,next) {
     var addressObject;
     var countryId;
     var countryName;
+    var loginToken;
 
     const loginObject = await db.Login.findOne({ where: { UserName: username } });
 
@@ -36,11 +39,21 @@ async function authenticate (request, response,next) {
         response.send('Email or password is incorrect');
     }
     else{
+
+        sess = request.session;
+        sess.username=username;
+       loginToken =  getToken(username);
+       sess.loginToken=loginToken;
+      console.log("logingintoken=========="+JSON.stringify(loginToken));
+       
+
         await db.loginModel.findOne({
             attributes: ['UserID'],
             where: {LoginID: loginObject.LoginID}                       
     
     }).then(async function (loginUsers) {
+
+        sess.loginUsers=loginUsers;
 
             console.log("unnalke======="+JSON.stringify(loginUsers.UserID));
             this.userId=loginUsers.UserID;
@@ -49,12 +62,14 @@ async function authenticate (request, response,next) {
             this.userObject= await db.User.findOne({
                 where:{UserID:this.userId}
             });
+            sess.userObject= this.userObject;
 
             this.emailId= await db.emailUser.findOne({
                 attributes: ['EmailID'],
                 where:{UserID:this.userId}
             }).then(async function(emailUsers){
-                console.log("emaildetails======="+JSON.stringify(emailUsers.EmailID));
+                console.log("emailID======="+JSON.stringify(emailUsers.EmailID));
+                sess.EmailID= emailUsers.EmailID;
                 this.email= await db.Email.findOne({
                     attributes: ['EmailAddress'],
                     where:{EmailID:emailUsers.EmailID}
@@ -77,6 +92,7 @@ async function authenticate (request, response,next) {
                     })
 
                 }
+                sess.phoneObject= this.phoneObject;
                 console.log("phoneObject==========>"+this.phoneObject)
                 
                
@@ -108,22 +124,14 @@ async function authenticate (request, response,next) {
                     });
 
                 }
-                console.log("phoneObject==========>"+this.addressObject);             
+            
+               // console.log("phoneObject==========>"+this.addressObject);             
                
             });
+            sess.country= this.countryName;
+            response.json(sess);
 
-            
-            
-
-
-           
-                request.session.loggedin = true;
-                request.session.UserName = username;
-
-                console.log( request.session);
-                console.log( request.session.loggedin);
-                response.send(request.session);
-                                //response.redirect('/home');
+            //response.redirect('/home');
     }
     
 
@@ -143,6 +151,15 @@ async function authenticate (request, response,next) {
 		response.end();
 	}*/
 };
+
+
+function getToken(username){
+    let username2 = username;  
+    let bufferObj = Buffer.from(username2, "utf8"); 
+    let en_token = bufferObj.toString("base64"); 
+    return en_token;
+   }
+
 
 router.get('/home', function(request, response) {
    console.log("dfsfsdfsdfsdfsdf"+request.session.Username);
