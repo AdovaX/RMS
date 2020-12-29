@@ -183,7 +183,11 @@ async function register(params, origin) {
    const address = new db.Address(params);  
    const userAddress = new db.userAddress(params); 
    // save User,Address and User Address details
-   user.MiddleName='';
+  // console.log("params.MiddleName==========>"+JSON.stringify(params));
+   if(params.MiddleName==null || params.MiddleName==''){
+    user.MiddleName='';
+   }
+  // 
   // user.UserID=10;
 
   address.Address='';
@@ -352,6 +356,10 @@ async function socialRegister(params, origin) {
         // send already registered error in email to prevent account enumeration
         return await sendAlreadyRegisteredEmail(params.email, origin);
     }
+
+
+
+
 
 
     // create account object

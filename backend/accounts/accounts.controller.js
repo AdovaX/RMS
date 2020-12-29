@@ -99,10 +99,12 @@ function revokeToken(req, res, next) {
 }
 
 function registerSchema(req, res, next) {
+    //console.log("validation req.body"+JSON.stringify(req.body));
     const schema = Joi.object({
         //title: Joi.string().required(),
         FirstName: Joi.string().required(),
         LastName: Joi.string().required(),
+        MiddleName:Joi.string().allow(null, ''),
         EmailAddress: Joi.string().email().required(),
         LoginPassword: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('LoginPassword')).required(),
@@ -113,6 +115,7 @@ function registerSchema(req, res, next) {
 }
 
 function registerphoneSchema(req, res, next) {
+   // console.log("validation req.body"+JSON.stringify(req.body));
     const schema = Joi.object({
         //title: Joi.string().required(),
         FirstName: Joi.string().required(),
@@ -126,6 +129,8 @@ function registerphoneSchema(req, res, next) {
 }
 
 function register(req, res, next) {
+    console.log("register req.body"+JSON.stringify(req.body));
+
     accountService.register(req.body, req.get('origin'))
         .then(() => res.json({ message: 'Registration successful, please check your email for verification instructions' }))
         .catch(next);
