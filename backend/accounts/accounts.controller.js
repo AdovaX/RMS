@@ -120,6 +120,7 @@ function registerphoneSchema(req, res, next) {
         //title: Joi.string().required(),
         FirstName: Joi.string().required(),
         LastName: Joi.string().required(),
+        MiddleName:Joi.string().allow(null, ''),
         PhoneNumber: Joi.string().required(),
         LoginPassword: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('LoginPassword')).required(),

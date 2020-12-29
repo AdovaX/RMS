@@ -18,6 +18,7 @@ module.exports = router;
 
 
 async function authenticate (request, response,next) {
+   console.log("req======"+JSON.stringify(request.body));
 	var username = request.body.UserName;
     var password = request.body.LoginPassword;
     var userId;
@@ -41,8 +42,8 @@ async function authenticate (request, response,next) {
     else{
 
         sess = request.session;
-        sess.username=username;
-       loginToken =  getToken(username);
+        sess.username=request.body.UserName;
+       loginToken =  getToken(request.body.UserName);
        sess.loginToken=loginToken;
       console.log("logingintoken=========="+JSON.stringify(loginToken));
        
@@ -63,19 +64,25 @@ async function authenticate (request, response,next) {
                 where:{UserID:this.userId}
             });
             sess.userObject= this.userObject;
-
             this.emailId= await db.emailUser.findOne({
                 attributes: ['EmailID'],
                 where:{UserID:this.userId}
             }).then(async function(emailUsers){
-                console.log("emailID======="+JSON.stringify(emailUsers.EmailID));
-                sess.EmailID= emailUsers.EmailID;
-                this.email= await db.Email.findOne({
-                    attributes: ['EmailAddress'],
-                    where:{EmailID:emailUsers.EmailID}
-                })
-                console.log("emaildetailssss======="+JSON.stringify(this.email.EmailAddress));
-           // response.json({userdetails:userObject,email:email.EmailAddress})
+                console.log("emailID======="+JSON.stringify(emailUsers));
+                if(emailUsers==null){
+                    
+                    sess.EmailID= '';
+
+                }
+                else{
+                    sess.EmailID= emailUsers.EmailID;
+                    this.email= await db.Email.findOne({
+                        attributes: ['EmailAddress'],
+                        where:{EmailID:emailUsers.EmailID}
+                    })
+                    //console.log("emaildetailssss======="+JSON.stringify(this.email.EmailAddress));
+
+                }
             });
 
             this.phoneId= await db.phoneUser.findOne({
