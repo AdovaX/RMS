@@ -15,6 +15,6 @@ function model(sequelize) {
     };
  
 
-    return sequelize.define('Logintypes', attributes,options);
+    return sequelize.define('LoginTypes', attributes,options);
    
 }

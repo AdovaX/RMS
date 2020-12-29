@@ -340,6 +340,41 @@ async function register(params, origin) {
     //await sendVerificationEmail(account, origin+'');
 }
 
+
+async function socialRegister(params, origin) {
+    // validate login userName
+    if (await db.loginModel.findOne({ where: { UserName: params.email } })) {
+        // send already registered error in email to prevent account enumeration
+        return await sendAlreadyRegisteredEmail(params.email, origin);
+    }
+
+    if (await db.Email.findOne({ where: { EmailAddress: params.email } })) {
+        // send already registered error in email to prevent account enumeration
+        return await sendAlreadyRegisteredEmail(params.email, origin);
+    }
+
+
+    // create account object
+    const account = new db.Account(params);
+
+    // first registered account is an admin
+    const isFirstAccount = (await db.Account.count()) === 0;
+    account.role = isFirstAccount ? Role.Admin : Role.User;
+    account.verificationToken = randomTokenString();
+
+    // hash password
+    account.passwordHash = await hash(params.password);
+    account.userName= params.userName;
+    //added for avoiding the mail verification need to be remove in future
+   // account.verified=Date.now();
+
+    // save account
+    await account.save();
+
+    // send email
+    await sendVerificationEmail(account, origin+'');
+}
+
 async function verifyEmail({ token }) {
     const account = await db.Account.findOne({ where: { verificationToken: token } });
 

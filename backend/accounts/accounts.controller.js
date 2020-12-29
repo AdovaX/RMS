@@ -24,7 +24,7 @@ router.post('/', authorize(Role.Admin), createSchema, create);
 //router.put('/:id', authorize(), updateSchema, update);
 router.put('/:Users_id', updateSchema, update);
 router.delete('/:id', authorize(), _delete);
-//router.post('/socialRegister', register);
+router.post('/socialRegister', socialRegister);
 
 module.exports = router;
 
@@ -127,6 +127,12 @@ function registerphoneSchema(req, res, next) {
 
 function register(req, res, next) {
     accountService.register(req.body, req.get('origin'))
+        .then(() => res.json({ message: 'Registration successful, please check your email for verification instructions' }))
+        .catch(next);
+}
+
+function socialRegister(req, res, next) {
+    accountService.socialRegister(req.body, req.get('origin'))
         .then(() => res.json({ message: 'Registration successful, please check your email for verification instructions' }))
         .catch(next);
 }
