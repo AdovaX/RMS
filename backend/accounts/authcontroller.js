@@ -3,6 +3,7 @@ const router = express.Router();
 const accountService = require('./authenticate.service');
 const bcrypt = require('bcryptjs');
 var session = require('express-session');
+const { QueryTypes } = require('sequelize');
 var app = express();
 app.use(session({
 	secret: 'secret',
@@ -12,8 +13,14 @@ app.use(session({
 var sess;  
 
 router.post('/authenticate', authenticate);
-const db = require('_helpers/db');
+router.get('/getallusers', getallusers);
+//const db = require('_helpers/db');
+const db = require('../_helpers/db')
 const { tokenName } = require('@angular/compiler');
+
+const config = require('config.json');
+const mysql = require('mysql2/promise');
+const { Sequelize } = require('sequelize');
 module.exports = router;
 
 
@@ -21,16 +28,6 @@ async function authenticate (request, response,next) {
    console.log("req======"+JSON.stringify(request.body));
 	var username = request.body.UserName;
     var password = request.body.LoginPassword;
-    var userId;
-    var userObject;
-    var emailId;
-    var email;
-    var phoneId;
-    var phoneObject;
-    var addressId;
-    var addressObject;
-    var countryId;
-    var countryName;
     var loginToken;
 
     const loginObject = await db.Login.findOne({ where: { UserName: username } });
@@ -56,7 +53,7 @@ async function authenticate (request, response,next) {
 
         sess.loginUsers=loginUsers;
 
-            console.log("unnalke======="+JSON.stringify(loginUsers.UserID));
+           // console.log("unnalke======="+JSON.stringify(loginUsers.UserID));
             this.userId=loginUsers.UserID;
             });
           
@@ -159,7 +156,29 @@ async function authenticate (request, response,next) {
 	}*/
 };
 
+async function getallusers(req, res, next) {
 
+   if(req.body.role=='Admin'){
+            try{
+                const { host, port, user, password, database } = config.database;
+                const sequelize = new Sequelize(database, user, password, { dialect: 'mysql' });
+                sequelize.query("select * from Users u LEFT JOIN User_Logins ul on u.UserID = ul.UserID LEFT JOIN Logins l on ul.LoginID = l.LoginID LEFT JOIN User_PhoneNumbers up on u.UserID=up.UserID LEFT JOIN PhoneNumbers pn on up.PhoneNoID=pn.PhoneNoID LEFT JOIN User_Emails ue on u.UserID=ue.UserID LEFT JOIN Emails e on ue.EmailID=e.EmailID LEFT JOIN User_Addresses ua on u.UserID=ua.UserID LEFT JOIN Addresses a on ua.AddressID=a.AddressID", { type:Sequelize.QueryTypes.SELECT})
+                .then(function(allUserObject) {
+                    // res.json(properties)
+                    //return ;
+                    res.json(allUserObject);
+                });
+            
+            }catch(err){
+                console.error(err);
+
+            }
+    }
+    else{
+
+        res.send('permission denied');
+    }
+}
 function getToken(username){
     let username2 = username;  
     let bufferObj = Buffer.from(username2, "utf8"); 

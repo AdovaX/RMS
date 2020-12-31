@@ -15,7 +15,7 @@ async function initialize() {
     // connect to db
     const sequelize = new Sequelize(database, user, password, { dialect: 'mysql' });
 
-    // init models and add them to the exported db object
+      // init models and add them to the exported db object
    // db.Account = require('../accounts/account.model')(sequelize);
    // db.RefreshToken = require('../accounts/refresh-token.model')(sequelize);
     db.User = require('../accounts/usermodels/usermodel')(sequelize);
@@ -36,6 +36,37 @@ async function initialize() {
     
 
     // define relationships
+
+    //address
+    db.Address.belongsTo(db.userAddress);
+    db.userAddress.hasMany(db.Address);
+    db.userAddress.belongsTo(db.User);
+    db.User.hasMany(db.userAddress);
+
+    //Email
+    db.Email.hasMany(db.emailUser);
+    db.emailUser.belongsTo(db.Email);
+    
+    db.emailUser.belongsTo(db.User);
+    db.User.hasMany(db.emailUser);
+
+     //Phone
+     db.Phone.belongsTo(db.phoneUser);
+     db.phoneUser.hasMany(db.Phone);
+     db.phoneUser.belongsTo(db.User);
+     db.User.hasMany(db.phoneUser);
+
+     //Login
+     db.Login.belongsTo(db.loginModel);
+     db.loginModel.hasMany(db.Login);
+     db.loginModel.belongsTo(db.User);
+     db.User.hasMany(db.loginModel);
+
+
+
+
+   
+
     //db.Account.hasMany(db.RefreshToken, { onDelete: 'CASCADE' });
    // db.RefreshToken.belongsTo(db.Account);
    //db.User.hasMany()
