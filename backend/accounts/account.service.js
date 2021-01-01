@@ -488,7 +488,7 @@ async function update(Users_id, params) {
     var email =null;
     var address=null;
     var login=null;
-    
+
     if(params.hasOwnProperty('User')){
         user = await getUser(Users_id);
     }
@@ -630,9 +630,22 @@ async function getLogin(userId) {
 
 
 
-async function _delete(id) {
+/*async function _delete(id) {
     const account = await getAccount(id);
     await account.destroy();
+}*/
+
+async function _delete(useId) {
+    const loginUserObj = await db.loginModel.findByPk(useId);
+    const loginObj = await db.Login.findByPk(loginUserObj.LoginID);
+    if (!loginObj) throw 'User Details Details not found';
+    else{
+        loginObj.UserNameVerified=2;
+        await loginObj.save();
+        return "User Account Deleted Successfully";
+
+    }
+   
 }
 
 // helper functions

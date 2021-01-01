@@ -23,6 +23,7 @@ router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
 //router.put('/:id', authorize(), updateSchema, update);
 router.put('/:Users_id', update);
+router.put('/inactive/:Users_id', inActive);
 router.delete('/:id', authorize(), _delete);
 router.post('/socialRegister', socialRegister);
 
@@ -328,6 +329,14 @@ function update(req, res, next) {
     accountService.update(req.params.Users_id, req.body)
         .then(account => res.json(account))
         .catch(next);
+}
+
+function inActive(req, res, next){
+    console.log('req.params'+JSON.stringify(req.params));
+    accountService.delete(req.params.Users_id)
+        .then(account => res.json(account))
+        .catch(next);
+
 }
 
 function _delete(req, res, next) {
