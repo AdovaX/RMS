@@ -16,8 +16,6 @@ router.post('/authenticate', authenticate);
 router.get('/getallusers', getallusers);
 //const db = require('_helpers/db');
 const db = require('../_helpers/db')
-const { tokenName } = require('@angular/compiler');
-
 const config = require('config.json');
 const mysql = require('mysql2/promise');
 const { Sequelize } = require('sequelize');
