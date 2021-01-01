@@ -23,7 +23,6 @@
         "jsonwebtoken": "^8.5.1",
         "mysql2": "^2.2.5",
         "nodemailer": "^6.4.11",
-        "query": "^0.2.0",
         "rootpath": "^0.1.2",
         "sequelize": "^6.3.5",
         "swagger-ui-express": "^4.1.4",
