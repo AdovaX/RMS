@@ -459,7 +459,7 @@ async function create(params) {
     return basicDetails(account);
 }
 
-async function update(Users_id, params) {
+/*async function update(Users_id, params) {
     const account = await getAccount(Users_id);
 
     // validate (if email was changed)
@@ -479,6 +479,155 @@ async function update(Users_id, params) {
 
     return basicDetails(account);
 }
+*/
+
+async function update(Users_id, params) {
+    userObject=[];
+    var user=null;
+    var phone =null;
+    var email =null;
+    var address=null;
+    var login=null;
+    if(params.hasOwnProperty('User')){
+        user = await getUser(Users_id);
+    }
+
+    if(params.hasOwnProperty('Phone')){
+        await phoneDuplicateCheck(params.Phone.PhoneNumber);
+        phone = await getPhoneNumber(Users_id);
+    }
+
+    if(params.hasOwnProperty('Email')){
+
+        await emailDuplicateCheck(params.Email.EmailAddress);
+         email = await getEmail(Users_id);        
+    }
+
+    if(params.hasOwnProperty('Address')){
+         address = await getAddress(Users_id);      
+    }
+
+    if(params.hasOwnProperty('Login')){
+        await userNameDuplicateCheck(params.Login.UserName)
+        login = await getLogin(Users_id);
+    }
+
+    //update user
+    if(user!=null){   
+        Object.assign(user, params.User);
+        await user.save();
+        userObject.push({"userObject":user});
+    }
+
+   //update phone
+   if(phone!=null){  
+        Object.assign(phone, params.Phone);
+        await phone.save();   
+        userObject.push({"phoneObject":phone});  
+   }
+
+   //update email
+   if(email!=null){
+        Object.assign(email, params.Email);
+        await email.save();  
+        userObject.push({"emailObject":email}); 
+   }
+
+    //update address
+    if(address!=null){
+    Object.assign(address, params.Address);
+    await address.save();  
+    userObject.push({"addressObject":address});  
+    }
+
+    //update login
+    if(login!=null){
+    Object.assign(login, params.Login);
+    await login.save();  
+    userObject.push({"loginObject":login});  
+    }
+
+    return userObject;
+
+    
+}
+
+async function getUser(userId) {
+    const user = await db.User.findByPk(userId);
+    if (!user) throw 'User not found';
+    return user;
+}
+
+async function phoneDuplicateCheck(phoneNumber) {
+
+    const phoneObj = await db.Phone.findAll({
+        where:{PhoneNumber:phoneNumber}
+    });
+
+    if(phoneObj.length>0){
+        throw "phone number already in use, please enter another valid phone number";
+    }
+    
+    return phoneObj;
+}
+
+async function emailDuplicateCheck(email) {
+
+    const emailObj = await db.Email.findAll({
+        where:{EmailAddress:email}
+    });
+
+    if(emailObj.length>0){
+        throw "email address already in use, please enter another valid email address";
+    }
+    
+    return emailObj;
+}
+
+async function userNameDuplicateCheck(userName) {
+
+    const loginObj = await db.Login.findAll({
+        where:{UserName:userName}
+    });
+
+    if(loginObj.length>0){
+        throw "User Name already in use, please enter another valid User Name";
+    }
+    
+    return loginObj;
+}
+
+
+async function getPhoneNumber(userId) {
+    const phoneUserObj = await db.phoneUser.findByPk(userId);
+    const phoneObj = await db.Phone.findByPk(phoneUserObj.PhoneNoID);
+    if (!phoneObj) throw 'Phone Details not found';
+    return phoneObj;
+}
+
+
+async function getEmail(userId) {
+    const emailUserObj = await db.emailUser.findByPk(userId);
+    const emailObj = await db.Email.findByPk(emailUserObj.EmailID);
+    if (!emailObj) throw 'Email Details not found';
+    return emailObj;
+}
+
+async function getAddress(userId) {
+    const addressUserObj = await db.userAddress.findByPk(userId);
+    const addressObj = await db.Address.findByPk(addressUserObj.AddressID);
+    if (!addressObj) throw 'Address Details not found';
+    return addressObj;
+}
+
+async function getLogin(userId) {
+    const loginUserObj = await db.loginModel.findByPk(userId);
+    const loginObj = await db.Login.findByPk(loginUserObj.LoginID);
+    if (!loginObj) throw 'Login Details not found';
+    return loginObj;
+}
+
+
 
 async function _delete(id) {
     const account = await getAccount(id);

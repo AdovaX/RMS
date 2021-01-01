@@ -37,30 +37,7 @@ async function initialize() {
 
     // define relationships
 
-    //address
-    db.Address.belongsTo(db.userAddress);
-    db.userAddress.hasMany(db.Address);
-    db.userAddress.belongsTo(db.User);
-    db.User.hasMany(db.userAddress);
-
-    //Email
-    db.Email.hasMany(db.emailUser);
-    db.emailUser.belongsTo(db.Email);
     
-    db.emailUser.belongsTo(db.User);
-    db.User.hasMany(db.emailUser);
-
-     //Phone
-     db.Phone.belongsTo(db.phoneUser);
-     db.phoneUser.hasMany(db.Phone);
-     db.phoneUser.belongsTo(db.User);
-     db.User.hasMany(db.phoneUser);
-
-     //Login
-     db.Login.belongsTo(db.loginModel);
-     db.loginModel.hasMany(db.Login);
-     db.loginModel.belongsTo(db.User);
-     db.User.hasMany(db.loginModel);
 
 
 

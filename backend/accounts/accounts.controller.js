@@ -5,6 +5,7 @@ const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
 const Role = require('_helpers/role');
 const accountService = require('./account.service');
+const { CONSOLE_APPENDER } = require('karma/lib/constants');
 //const { ConditionalExpr } = require('@angular/compiler');
 
 // routes
@@ -22,7 +23,7 @@ router.get('/', authorize(Role.Admin), getAll);
 router.get('/:id', authorize(), getById);
 router.post('/', authorize(Role.Admin), createSchema, create);
 //router.put('/:id', authorize(), updateSchema, update);
-router.put('/:Users_id', updateSchema, update);
+router.put('/:Users_id', update);
 router.delete('/:id', authorize(), _delete);
 router.post('/socialRegister', socialRegister);
 
@@ -258,7 +259,7 @@ function create(req, res, next) {
         .catch(next);
 }
 
-function updateSchema(req, res, next) {
+/*function updateSchema(req, res, next) {
     console.log("initial response===========>",JSON.stringify(req.body));
     const schemaRules = {
         title: Joi.string().empty(''),
@@ -279,7 +280,45 @@ function updateSchema(req, res, next) {
 
     const schema = Joi.object(schemaRules).with('password', 'confirmPassword');
     validateRequest(req, next, schema);
+}*/
+function updateSchema(req, res, next) {
+    console.log("initial response===========>",JSON.stringify(req.params));
+    const schemaRules=null;
+    if(req.body.hasOwnProperty('User')){
+        
+        console.log("req.body.User================>"+JSON.stringify(req.body.User));
+        try{
+            schemaRules = Joi.object().keys({
+                User: Joi.object().keys({
+                    FirstName: Joi.string().required,
+                    MiddleName: Joi.string().required,
+                    LastName: Joi.string().required,
+                })
+            });
+        }catch(err){
+            console.log(err);
+
+        }
+
+        
+        const schema = Joi.object(schemaRules).with('password', 'confirmPassword');
+        validateRequest(req, next, schema,{ allowUnknown: true });
+
+    } 
+    
+    
 }
+
+/*function update(req, res, next) {
+    // users can update their own account and admins can update any account
+    console.log('req.params'+JSON.stringify(req.params));
+    console.log('req.body'+JSON.stringify(req.body));
+    
+
+    accountService.update(req.params.Users_id, req.body)
+        .then(account => res.json(account))
+        .catch(next);
+}*/
 
 function update(req, res, next) {
     // users can update their own account and admins can update any account
