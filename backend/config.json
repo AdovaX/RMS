@@ -4,7 +4,7 @@
         "port": 3306,
         "user": "dev",
         "password": "Ics@2020",
-        "database": "CentralUsers"
+        "database": "CentralUserNew"
     },
     "secret": "IMEIDB@123",
     "emailFrom": "Repair",
