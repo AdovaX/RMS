@@ -8,8 +8,8 @@ function model(sequelize) {
         UserName: { type: DataTypes.STRING, allowNull: false },
         UserNameVerified: { type: DataTypes.INTEGER, allowNull: false },
         LoginTypeID:{ type: DataTypes.INTEGER, allowNull: false },
-        LoginPassword: { type: DataTypes.STRING, allowNull: false },
-        LoginPasswordSalt: { type: DataTypes.INTEGER, allowNull: false },
+        LoginPassword: { type: DataTypes.STRING, allowNull: true },
+        LoginPasswordSalt: { type: DataTypes.INTEGER, allowNull: true },
 
     };
 

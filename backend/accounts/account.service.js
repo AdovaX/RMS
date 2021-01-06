@@ -20,7 +20,11 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    addphone,
+    addemail,
+    addaddress
+    
 };
 
 async function authenticate({ email, password, ipAddress }) {
@@ -107,52 +111,7 @@ async function revokeToken({ token, ipAddress }) {
     await sendVerificationEmail(account, origin+'');
 }*/
 async function register(params, origin) {
-    if(params.hasOwnProperty('PhoneNumber')){
-        console.log("woking");
-
-    }
-    if(params.hasOwnProperty('EmailAddress')){
-        console.log("Email woking");
-
-    }
-   
-    const usetId=0;
-    const phoneId=0;
-    const loginId=0;
-    const emailId=0;
-    var logintypeObject =null;
-   // const addressId=0;
-    // validate
-    const countryObject = await db.countryModel.findOne({ where: { CountryName: 'India' } });
-    if (countryObject === null) {
-      console.log('countryObject Not found!');
-    } else {
-      console.log(countryObject instanceof db.countryModel); // true
-      console.log(countryObject.CountryID); // 'CountryID'
-    }
-
-    const phoneTypeObject = await db.phoneType.findOne({ where: { PhoneNoTypeDesc: 'Mobile' } });
-    if (phoneTypeObject === null) {
-      console.log('phoneTypeObject Not found!');
-    } else {
-      console.log(phoneTypeObject instanceof db.phoneType); // true
-      console.log(phoneTypeObject.PhoneNoTypeID); // 'PhoneNoTypeID'
-    }
-    
-    if(params.hasOwnProperty('PhoneNumber')){    
-     logintypeObject = await db.loginType.findOne({ where: { LoginTypeDesc: 'Phone' } });
-    }
-    if(params.hasOwnProperty('EmailAddress')){    
-        logintypeObject = await db.loginType.findOne({ where: { LoginTypeDesc: 'Email' } });
-    }
-    if (logintypeObject === null) {
-      console.log('logintype ObjectNot found!');
-    } else {
-      console.log(logintypeObject instanceof db.loginType); // true
-      console.log(logintypeObject.LoginTypeID); // 'LoginTypeID'
-    }
- 
-    // create account object
+      // create User object
     const user = new db.User(params);   
     const phone = new db.Phone(params);
     const phoneUser = new db.phoneUser(params);
@@ -160,67 +119,34 @@ async function register(params, origin) {
     const loginUser = new db.loginModel(params);
     const email= new db.Email(params);
     const emailUser= new db.emailUser(params);
-
-    //email.EmailAddress=params.EmailAddress;
-   // console.log(email.EmailAddress);
-    //await email.save();
-
-
-    if(params.hasOwnProperty('PhoneNumber')){        
-        login.UserName = params.PhoneNumber;
-    }
-    if(params.hasOwnProperty('EmailAddress')){        
-        login.UserName = params.EmailAddress;
-    }
-   
-    login.LoginTypeID=logintypeObject.LoginTypeID;
-    console.log("login.LoginTypeID=========>"+login.LoginTypeID)
-    login.UserNameVerified= 0;
-    login.LoginPassword=params.LoginPassword;
-    login.LoginPasswordSalt=await hash(params.LoginPassword);
     
-    
-   const address = new db.Address(params);  
-   const userAddress = new db.userAddress(params); 
-   // save User,Address and User Address details
-  // console.log("params.MiddleName==========>"+JSON.stringify(params));
-   if(params.MiddleName==null || params.MiddleName==''){
-    user.MiddleName='';
-   }
-  // 
-  // user.UserID=10;
-
-  address.Address='';
-  address.Town='';
-  address.State='';
-  address.CountryID=countryObject.CountryID;
-  address.PostCode='';
-  address.save().then(async function(addressObject){
-
-        console.log("addId======"+addressObject.AddressID);
-        user.DefaultAddressID=addressObject.AddressID;
+    var logintypeObject =null;
+        
         if(params.hasOwnProperty('PhoneNumber')){ 
+            const phoneTypeObject = await db.phoneType.findOne({ where: { PhoneNoTypeDesc: 'Mobile' } });
+            const countryObject = await db.countryModel.findOne({ where: { CountryName: 'India' } });
+            logintypeObject = await db.loginType.findOne({ where: { LoginTypeDesc: 'Phone' } });
             phone.CountryID=countryObject.CountryID;
             phone.NumberinInterForm=0;
             phone.PhoneNoTypeID=phoneTypeObject.PhoneNoTypeID;
         
             await phone.save().then(async function(phoneResult){
                 this.phoneId=phoneResult.PhoneNoID;
-                console.log("PhoneNoID========>"+ this.phoneId);
                 user.DefaultPhoneID=this.phoneId;
 
                     await user.save().then(async function(userResult){
-                        userAddress.UserID=userResult.UserID; 
-                        userAddress.AddressID=addressObject.AddressID;
-                        userAddress.save();
                         this.usetId=userResult.UserID;
                         phoneUser.UserID=this.usetId;
                         phoneUser.PhoneNoID=this.phoneId;
                         await phoneUser.save();
+
+                        login.UserName = params.PhoneNumber;
+                        login.LoginTypeID=logintypeObject.LoginTypeID;
+                        login.UserNameVerified= 0;
+                        login.LoginPassword=params.LoginPassword;
+                        login.LoginPasswordSalt=await hash(params.LoginPassword);
                         await login.save().then(async function(loginResult){
                             this.loginId=loginResult.LoginID;
-                            console.log("loginId========>"+ this.loginId);
-                            console.log("userid========>"+ this.usetId);
                             loginUser.UserID=this.usetId;
                             loginUser.LoginID=this.loginId;
                             await loginUser.save();
@@ -231,117 +157,34 @@ async function register(params, origin) {
         }
 
         if(params.hasOwnProperty('EmailAddress')){ 
-            phone.CountryID=countryObject.CountryID;
-            phone.NumberinInterForm=0;
-            phone.PhoneNoTypeID=phoneTypeObject.PhoneNoTypeID;
-            phone.PhoneNumber='000000000000';
-        
-            await phone.save().then(async function(phoneResult){
-                this.phoneId=phoneResult.PhoneNoID;
-                console.log("PhoneNoID========>"+ this.phoneId);
-                user.DefaultPhoneID=this.phoneId;
-
+            logintypeObject = await db.loginType.findOne({ where: { LoginTypeDesc: 'Email' } });
                     await user.save().then(async function(userResult){
-                        userAddress.UserID=userResult.UserID; 
-                        userAddress.AddressID=addressObject.AddressID;
-                        userAddress.save();
                         this.usetId=userResult.UserID;
-                        phoneUser.UserID=this.usetId;
-                        phoneUser.PhoneNoID=this.phoneId;
-                        await phoneUser.save();
 
                         await email.save().then(async function(emailResult){
                             this.emailId=emailResult.EmailID;
-                            console.log("EmailID========>"+ this.emailId);
-                            console.log("userid========>"+ this.usetId);
                             emailUser.UserID=this.usetId;
                             emailUser.EmailID=this.emailId;
                             await emailUser.save();
                            
                         });
-
+                        
+                        login.UserName = params.EmailAddress;
+                        login.LoginTypeID=logintypeObject.LoginTypeID;
+                        login.UserNameVerified= 0;
+                        login.LoginPassword=params.LoginPassword;
+                        login.LoginPasswordSalt=await hash(params.LoginPassword);
                         await login.save().then(async function(loginResult){
                             this.loginId=loginResult.LoginID;
-                            console.log("loginId========>"+ this.loginId);
-                            console.log("userid========>"+ this.usetId);
                             loginUser.UserID=this.usetId;
                             loginUser.LoginID=this.loginId;
                             await loginUser.save();
                         
                         });
                     }); 
-            });
+            
         }
 
-
-  });
-
-   
-    
-    
-/*
-    
-    //added by temporary 
-    //phone.PhoneNumber=123456;
-
-  //  console.log("params.PhoneNumber=========>"+params.PhoneNumber);
-    if(params.hasOwnProperty('PhoneNumber')){        
-        login.UserName = params.PhoneNumber;
-    }
-    if(params.hasOwnProperty('EmailAddress')){        
-        login.UserName = params.EmailAddress;
-    }
-   
-    login.LoginTypeID=logintypeObject.LoginTypeID;
-    console.log("login.LoginTypeID=========>"+login.LoginTypeID)
-    login.UserNameVerified= 0;
-    login.LoginPassword=params.LoginPassword;
-    login.LoginPasswordSalt=await hash(params.LoginPassword);
-   //address.Town='';
-    //address.State='';
-   // address.CountryID=countryObject.CountryID;
-  //  address.PostCode='';
-    await user.save().then(async function(userResult){
-        this.usetId=userResult.UserID;
-      //console.log("userid========>"+ this.usetId);
-
-      
-
-     if(params.hasOwnProperty('EmailAddress')){ 
-      
-        await email.save().then(async function(emailResult){
-            this.emailId=emailResult.EmailID;
-            console.log("EmailID========>"+ this.emailId);
-            console.log("userid========>"+ this.usetId);
-            emailUser.UserID=this.usetId;
-            emailUser.EmailID=this.emailId;
-            await emailUser.save();
-           
-        });
-    }
-
-        await login.save().then(async function(loginResult){
-            this.loginId=loginResult.LoginID;
-            console.log("loginId========>"+ this.loginId);
-            console.log("userid========>"+ this.usetId);
-            loginUser.UserID=this.usetId;
-            loginUser.LoginID=this.loginId;
-            await loginUser.save();
-           
-        });
-
-
-    });*/
-
-
-  //  console.log("UserID======"+user.save().UserID)
-  //console.log("uuuuusetId========>"+this.usetId)
-   // await address.save();
-
-    //save Address
-    
-    // send email
-    //await sendVerificationEmail(account, origin+'');
 }
 
 
@@ -381,6 +224,22 @@ async function socialRegister(params, origin) {
 
     // send email
     await sendVerificationEmail(account, origin+'');
+}
+
+async function addphone(reqphoneobject, Users_id) {
+    user = await getUser(Users_id);
+    await phoneDuplicateCheck(reqphoneobject.PhoneNumber);
+    await addnewphone(reqphoneobject,user);    
+}
+
+async function addemail(reqemailobject, Users_id) {
+    user = await getUser(Users_id);
+    await emailDuplicateCheck(reqemailobject.EmailAddress);
+    await addnewemail(reqemailobject,user);    
+}
+async function addaddress(reqaddressobject, Users_id) {
+    user = await getUser(Users_id);
+    await addnewaddress(reqaddressobject,user);    
 }
 
 async function verifyEmail({ token }) {
@@ -459,28 +318,6 @@ async function create(params) {
     return basicDetails(account);
 }
 
-/*async function update(Users_id, params) {
-    const account = await getAccount(Users_id);
-
-    // validate (if email was changed)
-    if (params.email && account.email !== params.email && await db.Account.findOne({ where: { email: params.email } })) {
-        throw 'Email "' + params.email + '" is already taken';
-    }
-
-    // hash password if it was entered
-    if (params.password) {
-        params.passwordHash = await hash(params.password);
-    }
-
-    // copy params to account and save
-    Object.assign(account, params);
-    account.updated = Date.now();
-    await account.save();
-
-    return basicDetails(account);
-}
-*/
-
 async function update(Users_id, params) {
     userObject=[];
     var user=null;
@@ -488,24 +325,82 @@ async function update(Users_id, params) {
     var email =null;
     var address=null;
     var login=null;
-
-    if(params.hasOwnProperty('User')){
+    var isPhoneAvailable = false;
+    
         user = await getUser(Users_id);
-    }
+        console.log("userObject=========>"+JSON.stringify(user));
+    
 
     if(params.hasOwnProperty('Phone')){
-        await phoneDuplicateCheck(params.Phone.PhoneNumber);
-        phone = await getPhoneNumber(Users_id);
+         isPhoneAvailable= await isPhoneUser(Users_id);
+        if(isPhoneAvailable===true){
+            await phoneDuplicateCheck(params.Phone.PhoneNumber);
+            phone = await getPhoneNumber(Users_id,params.Phone);
+        }else{
+            const newphone = new db.Phone(params.Phone);
+            const countryObject = await db.countryModel.findOne({ where: { CountryName: 'India' } });
+            const phoneTypeObject = await db.phoneType.findOne({ where: { PhoneNoTypeDesc: 'Mobile' } });
+            newphone.CountryID=countryObject.CountryID;
+            newphone.NumberinInterForm=0;
+            newphone.PhoneNoTypeID=phoneTypeObject.PhoneNoTypeID;
+            newphone.save().then(async function(phoneResult){
+                const phoneUser = new db.phoneUser();
+                phoneUser.PhoneNoID=phoneResult.PhoneNoID;
+                phoneUser.UserID=Users_id;
+                    if(user.DefaultPhoneID==null){
+                        user.DefaultPhoneID= phoneResult.PhoneNoID;
+                        await user.save();
+                    }    
+                phoneUser.save();            
+            });
+        }
+       
     }
 
     if(params.hasOwnProperty('Email')){
 
-        await emailDuplicateCheck(params.Email.EmailAddress);
-         email = await getEmail(Users_id);        
+        isEmailAvailable= await isEmailUser(Users_id);
+
+        if(isEmailAvailable===true){
+            await emailDuplicateCheck(params.Email.EmailAddress);
+            email = await getEmail(Users_id,params.Email);  
+        }else{
+           const newEmail= new db.Email(params.Email);
+           newEmail.save().then(async function(emailresult){
+                const emailUser= new db.emailUser();
+                emailUser.EmailID=emailresult.EmailID;
+                emailUser.UserID=Users_id;
+                emailUser.save();
+            });           
+        }
     }
 
     if(params.hasOwnProperty('Address')){
-         address = await getAddress(Users_id);      
+         isAddressAvailable= await isAddressUser(Users_id);
+       // isAddressAvailable=false;
+        if(isAddressAvailable===true){
+            address = await getAddress(Users_id,params.Address);
+        }else{
+            const newaddress=new db.Address(params.Address);
+            console.log("else address save======>");
+            await newaddress.save().then(async function (addressObject) {
+               const addressUser=new db.userAddress(); 
+               console.log("addressObject======>"+JSON.stringify(addressObject));
+               addressUser.AddressID=addressObject.AddressID;
+               console.log(" addressUser.AddressID======>"+JSON.stringify(addressUser.AddressID));
+               
+                    if(user.DefaultAddressID==null){
+                        console.log(" Default.AddressID======>");
+                        user.DefaultAddressID= addressUser.AddressID;
+                        console.log(" Default.After======>");
+                        await user.save();
+                    }
+                           
+               addressUser.UserID= Users_id;
+               await addressUser.save();                
+            });
+        }
+               
     }
 
     if(params.hasOwnProperty('Login')){
@@ -515,6 +410,7 @@ async function update(Users_id, params) {
 
     //update user
     if(user!=null){   
+        console.log("user===========>before update"+JSON.stringify(user));
         Object.assign(user, params.User);
         await user.save();
         userObject.push({"userObject":user});
@@ -536,6 +432,7 @@ async function update(Users_id, params) {
 
     //update address
     if(address!=null){
+    console.log("upadate================>");
     Object.assign(address, params.Address);
     await address.save();  
     userObject.push({"addressObject":address});  
@@ -558,6 +455,49 @@ async function getUser(userId) {
     if (!user) throw 'User not found';
     return user;
 }
+
+async function isPhoneUser(userId) {
+    var phoneUserObj; 
+    try{   
+     phoneUserObj = await db.phoneUser.findByPk(userId);
+     if(phoneUserObj){return true;}
+     else{return false;}
+    }
+    catch(err){
+        console.log("err============"+err)
+        return false;
+
+    }    
+}
+
+async function isEmailUser(userId) {
+    var emailUserObj; 
+    try{   
+        emailUserObj = await db.emailUser.findByPk(userId);
+     if(emailUserObj){return true;}
+     else{return false;}
+    }
+    catch(err){
+        console.log("err============"+err)
+        return false;
+
+    }    
+}
+async function isAddressUser(userId) {
+    var addressUserObj; 
+    try{   
+        addressUserObj = await db.userAddress.findByPk(userId);
+     if(addressUserObj){return true;}
+     else{return false;}
+    }
+    catch(err){
+        console.log("err============"+err)
+        return false;
+
+    }    
+}
+
+
 
 async function phoneDuplicateCheck(phoneNumber) {
 
@@ -599,34 +539,129 @@ async function userNameDuplicateCheck(userName) {
 }
 
 
-async function getPhoneNumber(userId) {
-    const phoneUserObj = await db.phoneUser.findByPk(userId);
+async function getPhoneNumber(userId,phoneObject) {
+    try{
+    const phoneUserObj = await db.phoneUser.findOne({ where: { UserID: userId,PhoneNoID:phoneObject.PhoneNoID}});
     const phoneObj = await db.Phone.findByPk(phoneUserObj.PhoneNoID);
     if (!phoneObj) throw 'Phone Details not found';
     return phoneObj;
+    }catch(err){
+            
+        const saveNewPhone = new db.Phone(phoneObject);
+        await saveNewPhone.save().then(async function(newPhoneObject){
+            const saveNewUserPhone=new db.phoneUser();
+            saveNewUserPhone.UserID=userId;
+            saveNewUserPhone.PhoneNoID=newPhoneObject.PhoneNoID;
+        await saveNewUserPhone.save()
+
+        });
+
+        console.log("newAddressObject============>"+JSON.stringify(saveNewPhone));
+        return saveNewPhone;
+
+    }
 }
 
 
-async function getEmail(userId) {
-    const emailUserObj = await db.emailUser.findByPk(userId);
+async function getEmail(userId,userEmail) {
+    try{
+    const emailUserObj = await db.emailUser.findOne({ where: { UserID: userId,EmailID:userEmail.EmailID }});
     const emailObj = await db.Email.findByPk(emailUserObj.EmailID);
     if (!emailObj) throw 'Email Details not found';
     return emailObj;
+    }catch(err){
+        const saveNewEmail = new db.Email(userEmail);
+        await saveNewEmail.save().then(async function(newEmailObject){
+            const saveNewEmailUser=new db.emailUser();
+            saveNewEmailUser.UserID=userId;
+            saveNewEmailUser.EmailID=newEmailObject.EmailID;
+            await saveNewEmailUser.save();
+        });
+
+        console.log("newAddressObject============>"+JSON.stringify(saveNewEmail));
+        return saveNewEmail;
+    }
 }
 
-async function getAddress(userId) {
-    const addressUserObj = await db.userAddress.findByPk(userId);
+async function getAddress(userId,userAddressObject) {
+    try{
+    const addressUserObj = await db.userAddress.findOne({ where: { UserID: userId,AddressID:userAddressObject.AddressID } });
     const addressObj = await db.Address.findByPk(addressUserObj.AddressID);
     if (!addressObj) throw 'Address Details not found';
     return addressObj;
+    }catch(err){
+        
+        const saveNewAddress = new db.Address(userAddressObject);
+        await saveNewAddress.save().then(async function(newAddressObject){
+            const saveNewUserAddress=new db.userAddress();
+            saveNewUserAddress.UserID=userId;
+            saveNewUserAddress.AddressID=newAddressObject.AddressID;
+           await saveNewUserAddress.save()
+
+        });
+
+        console.log("newAddressObject============>"+JSON.stringify(saveNewAddress));
+        return saveNewAddress;
+
+    }
+   
+    
 }
 
 async function getLogin(userId) {
     const loginUserObj = await db.loginModel.findByPk(userId);
-    const loginObj = await db.Login.findByPk(loginUserObj.LoginID);
+    const loginObj = await db.Login.findByPk(loginUserObj.LoginID,{attributes: {
+         exclude: ['LoginPassword','LoginPasswordSalt'] // define columns that you don't want 
+      }});
     if (!loginObj) throw 'Login Details not found';
     return loginObj;
 }
+
+async function addnewphone(phoneObject,userObject) {
+    const newphone = new db.Phone(phoneObject);
+    const countryObject = await db.countryModel.findOne({ where: { CountryName: 'India' } });
+    const phoneTypeObject = await db.phoneType.findOne({ where: { PhoneNoTypeDesc: 'Mobile' } });
+    newphone.CountryID=countryObject.CountryID;
+    newphone.NumberinInterForm=0;
+    newphone.PhoneNoTypeID=phoneTypeObject.PhoneNoTypeID;
+    newphone.save().then(async function(phoneResult){
+        const phoneUser = new db.phoneUser();
+        phoneUser.PhoneNoID=phoneResult.PhoneNoID;
+        phoneUser.UserID=userObject.UserID;
+            if(userObject.DefaultPhoneID==null){
+                userObject.DefaultPhoneID= phoneResult.PhoneNoID;
+                await user.save();
+            }    
+        phoneUser.save();            
+    });
+
+}
+async function addnewemail(emailObject,userObject) {
+    const newEmail= new db.Email(emailObject);
+    newEmail.save().then(async function(emailresult){
+        const emailUser= new db.emailUser();
+        emailUser.EmailID=emailresult.EmailID;
+        emailUser.UserID=userObject.UserID;
+        emailUser.save();
+    });
+}
+async function addnewaddress(addressObject,userObject) {
+    const newaddress=new db.Address(addressObject);
+    await newaddress.save().then(async function (addressObjectresult) {
+        const addressUser=new db.userAddress(); 
+        addressUser.AddressID=addressObjectresult.AddressID;
+            if(userObject.DefaultAddressID==null){
+                user.DefaultAddressID= addressObjectresult.AddressID;
+                await user.save();
+            }
+        addressUser.UserID= userObject.UserID;
+        await addressUser.save();                
+    });
+
+}
+
+
+
 
 
 

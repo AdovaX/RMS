@@ -5,11 +5,11 @@ module.exports = model;
 function model(sequelize) {
     const attributes = {
         AddressID: {type: DataTypes.INTEGER,autoIncrement: true,primaryKey: true},
-        Address: { type: DataTypes.STRING, allowNull: false },
-        Town: { type: DataTypes.STRING, allowNull: false },
-        State: { type: DataTypes.STRING, allowNull: false },
+        Address: { type: DataTypes.STRING, allowNull: true },
+        Town: { type: DataTypes.STRING, allowNull: true },
+        State: { type: DataTypes.STRING, allowNull: true },
         CountryID: { type: DataTypes.INTEGER, allowNull: false },
-        PostCode: { type: DataTypes.STRING, allowNull: false },
+        PostCode: { type: DataTypes.STRING, allowNull: true },
     };
 
     const options = {

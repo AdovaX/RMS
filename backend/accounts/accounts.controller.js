@@ -26,6 +26,12 @@ router.put('/:Users_id', update);
 router.put('/inactive/:Users_id', inActive);
 router.delete('/:id', authorize(), _delete);
 router.post('/socialRegister', socialRegister);
+//add phone number
+router.post('/addphone/:Users_id',phonevaidation, addphone);
+//add email address
+router.post('/addemail/:Users_id',emailvalidation, addemail);
+//add user address
+router.post('/addaddress/:Users_id',addressvalidation, addaddress);
 
 
 module.exports = router;
@@ -105,8 +111,8 @@ function registerSchema(req, res, next) {
     const schema = Joi.object({
         //title: Joi.string().required(),
         FirstName: Joi.string().required(),
-        LastName: Joi.string().required(),
-        MiddleName:Joi.string().allow(null, ''),
+        //LastName: Joi.string().required(),
+        //MiddleName:Joi.string().allow(null, ''),
         EmailAddress: Joi.string().email().required(),
         LoginPassword: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('LoginPassword')).required(),
@@ -121,8 +127,8 @@ function registerphoneSchema(req, res, next) {
     const schema = Joi.object({
         //title: Joi.string().required(),
         FirstName: Joi.string().required(),
-        LastName: Joi.string().required(),
-        MiddleName:Joi.string().allow(null, ''),
+      //  LastName: Joi.string().required(),
+       // MiddleName:Joi.string().allow(null, ''),
         PhoneNumber: Joi.string().required(),
         LoginPassword: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('LoginPassword')).required(),
@@ -299,8 +305,7 @@ function updateSchema(req, res, next) {
             console.log(err);
 
         }
-
-        
+                
         const schema = Joi.object(schemaRules).with('password', 'confirmPassword');
         validateRequest(req, next, schema,{ allowUnknown: true });
 
@@ -337,6 +342,61 @@ function inActive(req, res, next){
         .then(account => res.json(account))
         .catch(next);
 
+}
+
+
+
+function phonevaidation (req, res, next) {
+    const schema = Joi.object({
+        PhoneNumber: Joi.string().regex(/^\d+$/).error(() => 'enter valid phone number').max(12).required(),
+        CountryID:Joi.number().integer().required(),
+        NumberinInterForm:Joi.number().integer().required(),
+        PhoneNoTypeID:Joi.number().integer().required(),
+         });
+    validateRequest(req, next, schema);
+}
+
+
+function addphone(req, res, next) {
+    console.log("addphone req.body"+JSON.stringify(req.body));
+
+    accountService.addphone(req.body, req.params.Users_id)
+        .then(() => res.json({ message: 'Phone Number Added Successfully' }))
+        .catch(next);
+}
+
+function emailvalidation (req, res, next) {
+    const schema = Joi.object({
+        EmailAddress:Joi.string().email().required()
+        });
+    validateRequest(req, next, schema);
+}
+
+function addemail(req, res, next) {
+    console.log("addemail req.body"+JSON.stringify(req.body));
+
+    accountService.addemail(req.body, req.params.Users_id)
+        .then(() => res.json({ message: 'Email Address Added Successfully' }))
+        .catch(next);
+}
+
+function addressvalidation(req, res, next) {
+        const schema = Joi.object({      
+        Address: Joi.string().allow(null, ''),
+        Town: Joi.string().allow(null, ''),
+        State:Joi.string().allow(null, ''),
+        CountryID:Joi.number().integer().required()
+        });
+    validateRequest(req, next, schema);
+}
+
+
+function addaddress(req, res, next) {
+    console.log("addAddress req.body"+JSON.stringify(req.body));
+
+    accountService.addaddress(req.body, req.params.Users_id)
+        .then(() => res.json({ message: 'Address Added Successfully' }))
+        .catch(next);
 }
 
 function _delete(req, res, next) {
