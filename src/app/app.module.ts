@@ -24,6 +24,9 @@ import {MatButtonModule} from '@angular/material/button';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
+import { LoginComponent } from './login/login.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
  
  @NgModule({
@@ -31,7 +34,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     AppComponent,
     RegistrationComponent,
     DashboardComponent, 
-    HeaderComponent, UserHeaderComponent, PrivacypolicyComponent
+    HeaderComponent, UserHeaderComponent, PrivacypolicyComponent, LoginComponent, AboutComponent, ContactComponent
   ],
   imports: [
     BrowserModule,
