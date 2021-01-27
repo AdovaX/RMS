@@ -23,14 +23,24 @@
     "@angular/router": "~10.2.0",
     "@ionic/angular": "^5.5.2",
     "angularx-social-login": "^3.5.4",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^3.4.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+<<<<<<< Updated upstream
     "express-session": "^1.17.1",
+=======
+    "express-jwt": "^6.0.0",
+    "express-session": "^1.17.1",
+    "joi": "^17.3.0",
+>>>>>>> Stashed changes
     "jquery": "^3.5.1",
+    "mysql2": "^2.2.5",
+    "nodemailer": "^6.4.17",
     "popper.js": "^1.16.1",
     "rootpath": "^0.1.2",
     "rxjs": "~6.6.0",
+    "sequelize": "^6.3.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
