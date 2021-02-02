@@ -16,3 +16,6 @@
 	color: white; 
     font-size: medium;
 }
+a{
+	cursor: pointer;
+}

@@ -7,10 +7,12 @@ import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component'
 import { LoginComponent } from './login/login.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
   //{ path: '', component: RegistrationComponent },
-  { path: '', component: LoginComponent },
+  { path: '', component: LandingPageComponent },
+  //{ path: '', component: LoginComponent },
   { path: 'About', component: AboutComponent },
   { path: 'Contact', component: ContactComponent },
   { path: 'Registration', component: RegistrationComponent },

@@ -13,6 +13,7 @@
   "dependencies": {
     "@angular/animations": "~10.2.0",
     "@angular/cdk": "^10.2.7",
+    "@angular/cli": "^10.2.1",
     "@angular/common": "~10.2.0",
     "@angular/compiler": "~10.2.0",
     "@angular/core": "~10.2.0",
@@ -27,13 +28,9 @@
     "bootstrap": "^3.4.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
-<<<<<<< Updated upstream
-    "express-session": "^1.17.1",
-=======
     "express-jwt": "^6.0.0",
     "express-session": "^1.17.1",
     "joi": "^17.3.0",
->>>>>>> Stashed changes
     "jquery": "^3.5.1",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.4.17",
@@ -46,7 +43,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1002.0",
-    "@angular/cli": "^11.1.0",
     "@angular/compiler-cli": "~10.2.0",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",

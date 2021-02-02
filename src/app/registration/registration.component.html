@@ -15,12 +15,14 @@
   <img src="https://res.cloudinary.com/mhmd/image/upload/v1569543678/form_d9sh6m.svg" alt="" class="img">
   <h1>Create an Account</h1>
   <p class="font-italic text-muted mb-0"> 
-  Create an account to get started with our Repair management system. <a [routerLink]="['/Privacypolicy']">Click to read our Privacy policy and rules.</a>
+  Create an account to get started with our Repair management system. 
+  <a href="#">Click to read our Privacy policy and rules.</a>
   </p> 
   
 <div class="row">
   <div class="col-lg-4 col-xs-12">
- <button type="button" class="marger widther" mat-raised-button data-toggle="modal" data-target="#myModal" color="primary">  <span class="font-weight-bold">Login back</span>
+ <button type="button" class="marger widther" mat-raised-button color="primary" [routerLink]="['/']">  
+   <span class="font-weight-bold">Login</span>
 </button>
 
 </div>
