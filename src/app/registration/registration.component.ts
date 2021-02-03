@@ -73,6 +73,8 @@ return;
 }
 this.userService.registerUser(this.form.getRawValue()).subscribe( data => {
 console.log(data);
+let myObj = JSON.parse(JSON.stringify(data));
+console.log(myObj.message);
 this.form.reset();
 this.router.navigate(['Home']);
 });
