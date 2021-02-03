@@ -2,15 +2,9 @@
     "database": {
         "host": "localhost",
         "port": 3306,
-<<<<<<< Updated upstream
         "user": "dev",
         "password": "Ics@2020",
         "database": "CentralUserNew"
-=======
-        "user": "root",
-        "password": "Dracula@123",
-        "database": "centralusers1"
->>>>>>> Stashed changes
     },
     "secret": "IMEIDB@123",
     "emailFrom": "Repair",

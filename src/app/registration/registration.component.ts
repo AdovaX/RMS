@@ -74,7 +74,7 @@ return;
 this.userService.registerUser(this.form.getRawValue()).subscribe( data => {
 console.log(data);
 this.form.reset();
-this.router.navigate(['Successorfailure']);
+this.router.navigate(['Home']);
 });
 
 }
@@ -88,7 +88,7 @@ submitFormPhone() {
 	this.userService.registerUserPhone(this.phoneform.getRawValue()).subscribe( data => {
 	console.log(data);
 	this.phoneform.reset();
-	this.router.navigate(['Successorfailure']);
+	this.router.navigate(['Home']);
 	});
 	
 	}

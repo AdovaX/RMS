@@ -26,9 +26,17 @@ export class UserService {
     
   }
 
+  loginCheck(loginData:any){
+console.log("Checking login function"  +loginData.UserName );
+let flag = this.http.post(this.baseurl+ 'auth/authenticate',loginData);
+
+return flag;
+  }
+
   //Registration Service
   registerUser(registrationDetails: any){
     console.log("registrationDetails==================>"+JSON.stringify(registrationDetails));
+     
     return this.http.post(this.baseurl + 'accounts/registeremail', registrationDetails);
     //return 'success';
   }

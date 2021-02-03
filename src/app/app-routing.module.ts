@@ -12,6 +12,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 const routes: Routes = [
   //{ path: '', component: RegistrationComponent },
   { path: '', component: LandingPageComponent },
+  { path: 'Home', component: LandingPageComponent },
   //{ path: '', component: LoginComponent },
   { path: 'About', component: AboutComponent },
   { path: 'Contact', component: ContactComponent },
