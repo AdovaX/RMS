@@ -21,7 +21,7 @@ form      : FormGroup;
 loginForm : FormGroup;
 accData   :any ;
 phoneform : FormGroup;
-
+register_done =0;
 constructor(private authService: SocialAuthService,
 	private router: Router,
 	private userService: UserService,
@@ -75,6 +75,10 @@ this.userService.registerUser(this.form.getRawValue()).subscribe( data => {
 console.log(data);
 let myObj = JSON.parse(JSON.stringify(data));
 console.log(myObj.message);
+if(myObj.message == "Registration successful, please check your email for verification instructions"){
+	this.register_done = 1;
+	this.userService.register_done =1;
+}
 this.form.reset();
 this.router.navigate(['Home']);
 });

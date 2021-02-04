@@ -12,7 +12,7 @@ import { Observable, of } from 'rxjs';
 export class UserService {
 
   constructor(private http: HttpClient) { }
-
+  register_done = 0;
   //baseurl: string = "http://localhost:4000/";
   baseurl: string = "http://13.126.170.121:4000/";
 

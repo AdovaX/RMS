@@ -28,6 +28,8 @@ import { LoginComponent } from './login/login.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import {MatCardModule} from '@angular/material/card';
+import { FooterComponent } from './footer/footer.component';
 
  
  @NgModule({
@@ -35,7 +37,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     AppComponent,
     RegistrationComponent,
     DashboardComponent, 
-    HeaderComponent, UserHeaderComponent, PrivacypolicyComponent, LoginComponent, AboutComponent, ContactComponent, LandingPageComponent
+    HeaderComponent, UserHeaderComponent, PrivacypolicyComponent, LoginComponent, AboutComponent, ContactComponent, LandingPageComponent, FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     ReactiveFormsModule,
     MatButtonModule,
     MatExpansionModule,
-    MatTabsModule
+    MatTabsModule,
+    MatCardModule
 
   ],
   providers: [{
