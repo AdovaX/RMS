@@ -31,7 +31,7 @@ this.form      = this.fb.group({
 FirstName      :['', Validators.required],
 LastName       :['', Validators.required],
 MiddleName		:[''],
-EmailAddress   : ['', [Validators.required, Validators.email]],
+EmailAddress   : ['', Validators.required],
 LoginPassword  :['', [Validators.required, Validators.minLength(6)]],
 confirmPassword:['', Validators.required]
 },

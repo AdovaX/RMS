@@ -36,10 +36,30 @@ return flag;
   //Registration Service
   registerUser(registrationDetails: any){
     console.log("registrationDetails==================>"+JSON.stringify(registrationDetails));
-     
+
+    var numbers = new RegExp(/^[0-9]+$/);
+    var email = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    let userNameValue = JSON.parse(JSON.stringify(registrationDetails));
+  
+  if(numbers.test(userNameValue.EmailAddress))
+  {
+    registrationDetails.PhoneNumber=userNameValue.EmailAddress;
+    console.log("withphonedetails==================>"+JSON.stringify(registrationDetails));
+
+    return this.http.post(this.baseurl + 'accounts/registerphone', registrationDetails);
+  }
+  if(email.test(userNameValue.EmailAddress))
+  {
     return this.http.post(this.baseurl + 'accounts/registeremail', registrationDetails);
+  }
+  else{
+    return this.http.post(this.baseurl + 'accounts/registerphone', registrationDetails);
+    //return "invalid UserName"
+      
     //return 'success';
   }
+ // return 'success';
+}
   registerUserPhone(registrationDetails: any){
     console.log("registrationDetails==================>"+JSON.stringify(registrationDetails));
     return this.http.post(this.baseurl + 'accounts/registerphone', registrationDetails);

@@ -26,11 +26,14 @@ export class LandingPageComponent implements OnInit {
   }
  
   ngOnInit(): void { 
+
     if(this.userService.register_done){
   var x = document.getElementById("snackbar");
   x.className = "show";
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  this.userService.register_done =0;
     }
+
   }
 
 login(){ 
